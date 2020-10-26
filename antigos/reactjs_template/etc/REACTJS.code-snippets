@@ -1,0 +1,290 @@
+{
+	// #@@@@# PROP TYPES #@@@@#
+	"PropTypes": {
+		"prefix": "PTypes",
+		"body": [
+			"${FUNCION_NAME}.propTypes =  {",
+			"${comp}: PTypes.bool ",
+			"// multiply: PTypes.oneOfType([PTypes.element, PTypes.func]).isRequired,",
+			"",
+			"}",
+		]
+	},
+
+	"PropDefaults": {
+		"prefix": "propDefault",
+		"body": [
+			"${FUNCION_NAME}.defaultProps =  {",
+			"${comp}: false ",
+			"",
+			"}",
+		]
+	},
+	// #############################################
+
+
+	// #@@@@# LAYOUTS #@@@@#
+	"Layouts Template": {
+		"prefix": "layoutTemplate",
+		"body": [
+			"import React from 'react';",
+			"import PTypes from 'prop-types'",
+			"",
+			"import { Wrapper } from './styles';",
+			"",
+			"export default function ${TM_DIRECTORY/^.+\\/(.*)$/${1:/capitalize}/}Layout({ children }) {",
+			"return <Wrapper>{children}</Wrapper>;",
+			"}",
+			"",
+			"${TM_DIRECTORY/^.+\\/(.*)$/${1:/capitalize}/}Layout.propTypes = {",
+			"children: PTypes.element.isRequired,",
+			"};",
+			"",
+			"",
+		]
+	},
+	// #############################################
+
+
+
+	// #@@@@# PAGES #@@@@#
+	"Page Template": {
+		"prefix": "pageTemplate",
+		"body": [
+			"import React from 'react';",
+			"import api from '~/services/api';",
+			"",
+			"import {} from 'react-icons/';",
+			"",
+			"import { Container } from './styles';",
+			"",
+			"export default function Dashboard() {",
+			"return (",
+			"<Container>",
+			"<h1>Dashboard</h1>",
+			"</Container>",
+			");",
+			"}",
+			"",
+			"",
+		]
+	},
+
+	"Style Template": {
+		"prefix": "styleTemplate",
+		"body": [
+			"import styled from 'styled-components';",
+			"// import { darken } from 'polished';",
+			"",
+			"export const Container = styled.div`",
+			"display: flex;",
+			"flex-direction: column;",
+			"`;",
+			"",
+		]
+	},
+
+	"Unform": {
+		"prefix": "unform",
+		"body": [
+			"",
+			"const schema = Yup.object().shape({",
+			"input1: Yup.string().required('Preencha o Input 1'),",
+			"input2: Yup.string().required('Preencha o Input 2'),",
+			"});",
+			"",
+			"const dispatch = useDispatch();",
+			"function handleSubmit({input1, input2}, {resetForm}) {",
+			"dispatch(ACTION_REQUEST(input1, input2));",
+			"resetForm();",
+			"}",
+			"",
+			"<Form schema={schema} onSubmit={handleSubmit}>",
+			"<Input name='input1' placeholder='Input 1' />",
+			"<Input name='input2' placeholder='Input 2' />",
+			"<button type='submit'>Enviar</button>",
+			"</Form>",
+			"",
+		]
+	},
+	// #############################################
+
+
+
+	// #@@@@# YUP VALIDATIONS #@@@@#
+	"Yup Web Validation": {
+		"prefix": "yupWebValidation",
+		"body": [
+				"const schema = Yup.object().shape({",
+				"text: Yup.string().required('Message'),",
+				"text: Yup.string().required('Message')",
+				"});",
+				"",
+		]
+	},
+	// #############################################
+
+
+
+	// #@@@@# REDUX #@@@@#
+	"Reducer Template": {
+		"prefix": "reducerTemplate",
+		"body": [
+				"import produce from 'immer';",
+				"const INITIAL_STATE = {};",
+				"",
+				"export default function ${TM_DIRECTORY/^.+\\/(.*)$/$1/}(state = INITIAL_STATE, action) {",
+				"return produce(state, draft => {",
+				"switch(action.type){",
+				"// case '@${TM_DIRECTORY/^.+\\/(.*)$/$1/}/##ACTION_SUCCESS##':{",
+				"// draft.STATE = action.payload.VALUE;",
+				"// break;",
+				"// }",
+				"",
+				"default:",
+				"",
+				"}",
+				"});",
+				"}",
+				"",
+		]
+	},
+
+	"Reducer Case": {
+		"prefix": "reducerCase",
+		"body": [
+				"case '@${TM_DIRECTORY/^.+\\/(.*)$/$1/}/${ACTION_TYPE}': {",
+				"draft.STATE = action.payload.VALUE;",
+				"break;",
+				"}",
+				"",
+		]
+	},
+
+	"Sagas Template": {
+		"prefix": "sagasTemplate",
+		"body": [
+				"import { takeLatest, call, put, all } from 'redux-saga/effects';",
+				"import { toast } from 'react-toastify';",
+				"import api from '~/services/api';",
+				"import history from '~/services/history';",
+				"",
+				"import {} from './actions';",
+				"",
+				"",
+				"export function* ${1:NAME}({ payload }) {",
+				"",
+				"yield console.tron.log(payload);",
+				"// const { ${VALUES} } = payload;",
+				"",
+				"// const response = yield call(api.METHOD, '##ROUTE##', {",
+				"// API_VALUES,",
+				"// });",
+				"// const { RETURN_VALUES } = response.data;",
+				"",
+				"",
+				"// yield put(ACTION_SUCCESS(RETURN_VALUES));",
+				"// history.push('/##ROUTE##');",
+				"",
+				"// } catch (error) {",
+				"// yield put(#ACTION_FAILURE#());",
+				"",
+				"// }",
+				"}",
+				"",
+				"export default all([ takeLatest('@${TM_DIRECTORY/^.+\\/(.*)$/$1/}/${2:ACTION}_REQUEST', ${1:NAME}) ]);",
+
+				"",
+		]
+	},
+
+	"Sagas Function": {
+		"prefix": "sagaFunction",
+		"body": [
+				"export function* ${1:NAME}({ payload }) {",
+				"try{",
+				"const { ${VALUES} } = payload;",
+				"",
+				"// const response = yield call(api.METHOD, '##ROUTE##', {",
+				"// API_VALUES,",
+				"// });",
+				"// const { RETURN_VALUES } = response.data;",
+				"",
+				"",
+				"// yield put(ACTION_SUCCESS(RETURN_VALUES));",
+				"// history.push('/##ROUTE##');",
+				"",
+				"} catch (error) {",
+				"// yield put(#ACTION_FAILURE#());",
+				"",
+				"}",
+				"}",
+				"",
+		]
+	},
+
+	"Actions Template": {
+		"prefix": "actionTemplate",
+		"body": [
+				"export function ${1:NAME}${2|Request,Sucess,Failure|}(${3:PARAMS}) {",
+				"return {",
+				"type: '@${TM_DIRECTORY/^.+\\/(.*)$/$1/}/${TYPE_NAME}',",
+				"payload: { ${3:PARAMS} },",
+				"};",
+				"}",
+				"",
+		]
+	},
+	// #############################################
+
+
+
+	// #@@@@# REACT HOOKS #@@@@#
+	"useState": {
+		"prefix": "useState",
+		"body": [
+				"const[${name}, set${Name}] = useState(${VALUE})",
+				"",
+		]
+	},
+
+	"useEffect": {
+		"prefix": "useEffect",
+		"body": [
+				"useEffect(() => {",
+				"// async function ${1:FUNCTION_NAME}() {",
+				"// const response = await api.get('${2:#ROUTE#}');",
+				"",
+				"// set${STATE}(response.data);",
+				"",
+				"// }",
+				"",
+				"// ${1}();",
+				"}, []);",
+				"",
+		]
+	},
+
+	"useMemo": {
+		"prefix": "useMemo",
+		"body": [
+				"const ${CONST_NAME} = useMemo(",
+				"() => ${FUNCTION_RETURN},",
+				"[${STATE_DEPENDENCY}]",
+				");",
+				"",
+				"",
+		]
+	},
+
+	"useSelector": {
+		"prefix": "useSelector",
+		"body": [
+				"const ${CONST_NAME} = useSelector(state => state.${STATE}.${VALUE});",
+				"",
+		]
+	},
+	// #############################################
+
+
+}

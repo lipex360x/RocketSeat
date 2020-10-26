@@ -1,0 +1,56 @@
+{
+	"Mongo Schema": {
+		"prefix": "mongoSchemaTemplate",
+		"body": [
+		"import mongoose from 'mongoose';",
+		"",
+		"const ${TM_FILENAME_BASE}Schema = new mongoose.Schema(",
+		"{",
+		"content: {",
+		"type: ${1|String,Number,Boolean,Array|},",
+		"require: true,",
+		"},",
+		"",
+		"},",
+		"",
+		"{",
+		"timestamps: true,",
+		"}",
+		");",
+		"",
+		"export default mongoose.model('${TM_FILENAME_BASE}', ${TM_FILENAME_BASE}Schema);",
+		"",
+		]
+	},
+
+	"Mongo Create": {
+		"prefix": "mongoCreate",
+		"body": [
+		"await ${1:MONGO_Schema}.create({",
+		"value: value,",
+		"});"
+		]
+	},
+
+	"Mongo Find": {
+		"prefix": "mongoFind",
+		"body": [
+		"const ${1:CONST_NAME} = await ${2:MONGO_Schema}.find({",
+		"value: value,",
+		"})",
+		"//.sort({ column: 'asc|desc'}),",
+		"//.limit(NUM),"
+		]
+	},
+
+	"Mongo Find and Update": {
+		"prefix": "mongoUpdate",
+		"body": [
+		"const ${1:CONST_NAME} = await ${2:MONGO_Schema}.findByIdAndUpdate(",
+		"req.params.id,",
+		"{ column: value },",
+		"{ new: true }",
+		")"
+		]
+	},
+}

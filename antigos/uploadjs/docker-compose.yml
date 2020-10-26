@@ -1,0 +1,14 @@
+version: '3'
+
+networks:
+  api:
+    driver: bridge
+
+services:
+  mongodb:
+    image: mongo
+    container_name: mongo
+    networks:
+      - api
+    ports:
+      - "27017:27017"
