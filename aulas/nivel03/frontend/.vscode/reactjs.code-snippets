@@ -1,0 +1,44 @@
+{
+
+  "React Component": {
+    "prefix": "componentTemplate",
+    "body": [
+      "import React from 'react';",
+      "import { Link } from 'react-router-dom';",
+      "//import {} from 'react-icons';",
+      "",
+      "import { Header } from './styles';",
+      "",
+      "const ${TM_DIRECTORY/^.+\\/(.*)$/${1:/capitalize}/}: React.FC = () => {",
+      "  return <Header>${TM_DIRECTORY/^.+\\/(.*)$/${1:/capitalize}/}</Header>;",
+      "};",
+      "",
+      "export default ${TM_DIRECTORY/^.+\\/(.*)$/${1:/capitalize}/};",
+    ]
+  },
+
+  "React Style": {
+    "prefix": "styleTemplate",
+    "body": [
+      "import styled from 'styled-components';",
+      "// import { shade } from 'polished';",
+      "",
+      "export const Header = styled.h1`",
+      "  display: flex;",
+      "  color: #333;",
+      "`;",
+    ]
+  },
+
+
+  "Template": {
+    "prefix": "00000",
+    "body": [
+      ""
+    ]
+  },
+
+}
+
+
+

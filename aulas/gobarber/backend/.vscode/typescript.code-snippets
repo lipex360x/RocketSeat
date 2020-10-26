@@ -1,0 +1,438 @@
+{
+	"Migration Create Table": {
+		"prefix": "migrationTable",
+		"body": [
+			"import { MigrationInterface, QueryRunner, Table } from 'typeorm';",
+      "",
+      "export default class ${1:MigrationName} implements MigrationInterface {",
+      "  public async up(queryRunner: QueryRunner): Promise<void> {",
+      "    await queryRunner.query(`CREATE EXTENSION IF NOT EXISTS \"uuid-ossp\"`);",
+      "",
+      "    await queryRunner.createTable(",
+      "      new Table({",
+      "        name: '${2:TABLE_NAME}',",
+      "        columns: [",
+      "          {",
+      "            name: 'id',",
+      "            type: 'uuid',",
+      "            isPrimary: true,",
+      "            generationStrategy: 'uuid',",
+      "            default: 'uuid_generate_v4()',",
+      "          },",
+      "          {",
+      "            name: '${3:COLUMN_NAME}',",
+      "            type: 'varchar',",
+      "          },",
+      "",
+      "          {",
+      "            name: 'created_at',",
+      "            type: 'timestamp with time zone',",
+      "            default: 'now()',",
+      "          },",
+      "          {",
+      "            name: 'updated_at',",
+      "            type: 'timestamp with time zone',",
+      "            default: 'now()',",
+      "          },",
+      "        ],",
+      "      }),",
+      "    );",
+      "  }",
+      "",
+      "  public async down(queryRunner: QueryRunner): Promise<void> {",
+      "    await queryRunner.dropTable('${2:TABLE_NAME}');",
+      "  }",
+      "}",
+		]
+  },
+
+  "Migration Add Column": {
+		"prefix": "migrationColumn",
+		"body": [
+      "import { MigrationInterface, QueryRunner, TableColumn } from 'typeorm';",
+      "",
+      "export default class ${1:MigrationName}",
+      "  implements MigrationInterface {",
+      "  public async up(queryRunner: QueryRunner): Promise<void> {",
+      "    await queryRunner.addColumn(",
+      "      '${1:Table Name}',",
+      "      new TableColumn({",
+      "        name: '${2:Column_Name}',",
+      "        type: 'varchar',",
+      "        isNullable: true,",
+      "      }),",
+      "    );",
+      "  }",
+      "",
+      "  public async down(queryRunner: QueryRunner): Promise<void> {",
+      "    await queryRunner.dropColumn('${1:Table Name}', '${2:Column Name}');",
+      "  }",
+      "}",
+    ]
+  },
+
+  "Migration FK insert column": {
+    "prefix": "migrationFKColumn",
+    "body": [
+      "        foreignKeys: [",
+      "          {",
+      "            name: '${1:ReferTable_ThisTable}',",
+      "",
+      "            referencedTableName: '${2:REFER_TABLE}',",
+      "            referencedColumnNames: ['${3:REFER_COLUMN}'],",
+      "",
+      "            columnNames: ['${4:THIS_COLUMN}'],",
+      "            onDelete: '${5|CASCADE,SET NULL|}',",
+      "            onUpdate: '${6|CASCADE,SET NULL|}',",
+      "          },",
+      "        ],",
+      ]
+    },
+
+  "Migration FK Add Column": {
+		"prefix": "migrationForeignKey",
+		"body": [
+      "import {",
+    "  MigrationInterface,",
+    "  QueryRunner,",
+    "  TableColumn,",
+    "  TableForeignKey,",
+    "} from 'typeorm';",
+    "",
+    "export default class ${1:MIGRATION_NAME}",
+    "  implements MigrationInterface {",
+    "  public async up(queryRunner: QueryRunner): Promise<void> {",
+    "",
+    "    await queryRunner.addColumn(",
+    "      '${2:DATABASE_NAME}',",
+    "      new TableColumn({",
+    "        name: '${3:COLUMN_NAME}',",
+    "        type: 'uuid',",
+    "        isNullable: true,",
+    "      }),",
+    "    );",
+    "",
+    "    await queryRunner.createForeignKey(",
+    "      '${2:DATABASE_NAME}',",
+    "      new TableForeignKey({",
+    "        name: '${4:FK_NAME}',",
+    "",
+    "        referencedTableName: '${5:REFERENCE_TABLE}',",
+    "        referencedColumnNames: ['${5:REFERENCE_COLUMN}'],",
+    "",
+    "        columnNames: ['${3:COLUMN_NAME}'],",
+    "        onDelete: '${6|CASCADE,SET NULL|}',",
+    "        onUpdate: '${7|CASCADE,SET NULL|}',",
+    "      }),",
+    "    );",
+    "  }",
+    "",
+    "  public async down(queryRunner: QueryRunner): Promise<void> {",
+    "    await queryRunner.dropForeignKey('${2:DATABASE_NAME}', '${4:FK_NAME}');",
+    "    await queryRunner.dropColumn('${2:DATABASE_NAME}', '${3:COLUMN_NAME}');",
+    "  }",
+    "}",
+    ]
+  },
+
+
+  "Router Template": {
+		"prefix": "routerTemplate",
+		"body": [
+      "import { Router } from 'express';",
+      "",
+      "// import sessionStarted from '@modules/users/infra/http/middlewares/sessionStarted'",
+      "import CONTROLLER from '../controllers/${1:CONTROLLER}';",
+      "",
+      "const CONTROLLER = new CONTROLLER();",
+      "",
+      "const router = Router();",
+      "",
+      "// router.use(sessionStarted);",
+      "",
+      "router.METHOD('/', CONTROLLER.create);",
+      "",
+      "export default router;",
+
+    ]
+  },
+
+  "Router Insert Methods ": {
+		"prefix": "routerMethod",
+		"body": [
+      "// import XXXXXX from '@modules/${1:Modulo}/infra/http/controllers/${2:Controller}';",
+      "// const CCCCC = new XXXXXX();",
+      "",
+      "router.post('/', CCCCC.create);",
+    ]
+  },
+
+
+  "Entity Template": {
+    "prefix": "entityTemplate",
+    "body": [
+      "import {",
+    "  Entity,",
+    "  Column,",
+    "  PrimaryGeneratedColumn,",
+    "  CreateDateColumn,",
+    "  UpdateDateColumn,",
+    "} from 'typeorm';",
+    "",
+    "@Entity('${TM_FILENAME_BASE/(.*)/${1:/downcase}/}')",
+    "class $TM_FILENAME_BASE {",
+    "  @PrimaryGeneratedColumn('uuid')",
+    "  id: string;",
+    "",
+    "  @Column()",
+    "  name: string;",
+    "",
+    "  @CreateDateColumn()",
+    "  created_at: Date;",
+    "",
+    "  @UpdateDateColumn()",
+    "  updated_at: Date;",
+    "}",
+    "",
+    "export default $TM_FILENAME_BASE;",
+    ]
+  },
+
+  "Inteface Repository Template": {
+      "prefix": "interfaceRepository",
+      "body": [
+        "import Entity from '../../infra/typeorm/entities/';",
+        "// import IModuleDTO from '@modules/.../dtos/IModuleDTO';",
+        "",
+        "//export interface IRepoPros{",
+        "//  data: string;",
+        "//}",
+        "",
+        "export default interface $TM_FILENAME_BASE {",
+        "  // create(data: IRepoPros): Promise<Entity>;",
+        "}"
+      ]
+    },
+
+  "Inteface Provider Template": {
+      "prefix": "interfaceProvider",
+      "body": [
+        "export default interface $TM_FILENAME_BASE {",
+        "  ${1:function}(data: ${2:type}): Promise<${3:return}>;",
+        "}"
+      ]
+    },
+
+  "Inteface Template": {
+      "prefix": "interfaceTemplate",
+      "body": [
+        "export interface $TM_FILENAME_BASE {",
+        "  name: string;",
+        "}"
+      ]
+    },
+
+
+    "Fake Class Implements Template": {
+      "prefix": "fakeProviderTemplate",
+      "body": [
+        "import INTERFACE, {INTERFACE_PROPS} from '../models/${1:Interface}';",
+        "",
+        "export default class $TM_FILENAME_BASE implements INTERFACE{",
+        "  // private localDB: INTERFACE_PROPS[] = [];",
+        "",
+        "  public async NAME_FUNCTION({}:INTERFACE_PROPS): Promise<RETURN_FUNCTION>{}",
+        "",
+        "}"
+      ]
+    },
+
+
+    "Class Implements Template": {
+      "prefix": "classImplements",
+      "body": [
+        "import INTERFACE from '${1:LOCAL}';",
+        "export default class $TM_FILENAME_BASE implements INTERFACE{",
+        "  public async name(data: string): Promise<void>{}",
+        "}"
+      ]
+    },
+
+
+
+    "Controller Template": {
+      "prefix": "controllerTemplate",
+      "body": [
+        "import { Request, Response } from 'express';",
+        "import { container } from 'tsyringe';",
+        "",
+        "import SERVICE from '../../../services/${2:Service}';",
+        "",
+        "class $TM_FILENAME_BASE {",
+        "  public async create(request: Request, response: Response): Promise<Response> {",
+        "    // const { data } = request.body;",
+        "    // const SERVICE = container.resolve(SERVICE);",
+        "    // const data = await SERVICE.execute({ data })",
+        "",
+        "    return response.json('controller ok');",
+        "  }",
+        "}",
+        "",
+        "export default $TM_FILENAME_BASE;"
+      ],
+    },
+
+
+    "Controller Fuctions Template": {
+      "prefix": "controllerFunctions",
+      "body": [
+        "  public async '${7|show,create,update,delete|}'(request: Request, response: Response): Promise<Response>{",
+        "  const {} = request.body",
+        "  }"
+      ],
+    },
+
+
+    "Service Template": {
+      "prefix": "serviceTemplate",
+      "body": [
+        "import { injectable, inject } from 'tsyringe';",
+        "import AppError from '@shared/errors/AppError';",
+        "",
+        "import ENTITY from '../infra/typeorm/entities/${1:ENTITY}'",
+        "",
+        "import INTERFACE_REPOSITORY from '../repositories/models/${2:INTERFACE_REPOSITORY}';",
+        "",
+        "interface IRequest {",
+        "  props: string;",
+        "}",
+        "",
+        "",
+        "@injectable()",
+        "export default class $TM_FILENAME_BASE {",
+        "  constructor(",
+        "    @inject('${1}Repository')",
+        "    private REPOSITORY: INTERFACE_REPOSITORY,",
+        "  ) {}",
+        "",
+        "  public async execute({ props }: IRequest): Promise<void> {",
+        "  // REPOSITORY FUNCTIONS",
+        "  }",
+        "}",
+        "",
+      ]
+    },
+
+
+    "Register Singleton": {
+      "prefix": "registerSingleton",
+      "body": [
+        "import INTERFACE_REPOSITORY from '@modules/${1:modulo}/repositories/models/${2:Interface}';",
+        "import RESPOSITORY from '@modules/${1:modulo}/infra/typeorm/repositories/${3:Repository}';",
+        "",
+        "container.registerSingleton<INTERFACE_REPOSITORY>(",
+        "  'RESPOSITORY',",
+        "  RESPOSITORY,",
+        ");",
+      ]
+    },
+
+
+    "Repository TypeORM Template": {
+      "prefix": "repoORM",
+      "body": [
+        "import { getRepository, Repository } from 'typeorm';",
+        "",
+        "import INTERFACE_DTO from '@modules/${1:modulo}/dtos/INTERFACE_DTO';",
+        "",
+        "import INTERFACE_REPOSITORY, { INTERFACE_PROPS } from '@modules/${1:modulo}/repositories/models/INTERFACE_REPOSITORY';",
+        "",
+        "import ENTITY from '../entities/ENTITY';",
+        "",
+        "export default class $TM_FILENAME_BASE implements INTERFACE_REPOSITORY {",
+        "  private ormRepository: Repository<ENTITY>;",
+        "",
+        "  constructor() {",
+        "    this.ormRepository = getRepository(ENTITY);",
+        "  }",
+        "",
+        "//  public async create(data: INTERFACE_DTO): Promise<ENTITY> {",
+        "//    const newData = this.ormRepository.create(data);",
+        "//    await this.ormRepository.save(newData);",
+        "//    return newData;",
+        "//  }",
+        "}",
+        "",
+      ]
+    },
+
+    "Test Template": {
+      "prefix": "testTemplate",
+      "body": [
+        "// import AppError from '@shared/errors/AppError';",
+        "",
+        "import FAKE_REPOSITORY from '../repositories/fakes/${1:FAKE_REPOSITORY}';",
+        "",
+        "import SERVICE from './$TM_FILENAME_BASE'",
+        "",
+        "let fake_repository: FAKE_REPOSITORY ",
+        "let nomeService: SERVICE ",
+        "",
+        "describe('${DESCRIBE_TEXT}', () => {",
+        "  beforeEach(() => {",
+        "    fake_repository = new FAKE_REPOSITORY();",
+        "    nomeService = new SERVICE(fake_repository)",
+        "  });",
+        "",
+        "  it('${4:TEXT}', async () => {",
+        "",
+        "    const test = await SERVICE.execute({})",
+        "",
+        "    // expect(test.email).toBe('valor');",
+        "    // expect(function).toHaveBeenCalled();",
+        "    // expect(function).toHaveBeenCalledWith(valor);",
+        "    // expect(test).toHaveProperty('data');",
+        "    // expect(test.execute({ data: 'valor' })).rejects.toBeInstanceOf(AppError);",
+        "  });",
+        "});",
+      ]
+    },
+
+    "It Test Template": {
+      "prefix": "itTemplate",
+      "body": [
+        "  it('${1:TEXT}', async () => {",
+        "",
+        "    const test = await SERVICE.execute({",
+        "      data: 'valor',",
+        "    });",
+        "",
+        "    // expect(test.email).toBe('valor');",
+        "    // expect(function).toHaveBeenCalled();",
+        "    // expect(function).toHaveBeenCalledWith(valor);",
+        "    // expect(test).toHaveProperty('data');",
+        "    // expect(test.execute({ data: 'valor' })).rejects.toBeInstanceOf(AppError);",
+        "  });",
+      ]
+    },
+
+
+
+}
+
+
+"Template": {
+  "prefix": "00000",
+  "body": [
+    "",
+    "",
+    "",
+  ]
+},
+
+
+
+
+
+
+

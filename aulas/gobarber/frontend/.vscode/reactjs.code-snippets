@@ -1,0 +1,90 @@
+{
+
+  "React Component": {
+    "prefix": "componentTemplate",
+    "body": [
+      "import React from 'react';",
+      "//import { Link } from 'react-router-dom';",
+      "//import {} from 'react-icons';",
+      "",
+      "import { Container } from './styles';",
+      "",
+      "const ${TM_DIRECTORY/^.+\\/(.*)$/${1:/capitalize}/}: React.FC = () => {",
+      "  return (<Container><span>${TM_DIRECTORY/^.+\\/(.*)$/${1:/capitalize}/}</span></Container>)",
+      "};",
+      "",
+      "export default ${TM_DIRECTORY/^.+\\/(.*)$/${1:/capitalize}/};",
+    ]
+  },
+
+  "React Style": {
+    "prefix": "styleTemplate",
+    "body": [
+      "import styled from 'styled-components';",
+      "// import { shade } from 'polished';",
+      "",
+      "export const Container = styled.div`",
+      "  display: flex;",
+      "`;",
+    ]
+  },
+
+  "Yup Web Validation": {
+		"prefix": "yupWebValidation",
+		"body": [
+      "const schema = Yup.object().shape({",
+      "text: Yup.string().required('Message'),",
+      "text: Yup.string().required('Message')",
+      "});",
+      "",
+		]
+	},
+
+  "Context Template": {
+    "prefix": "contextTemplate",
+    "body": [
+      "import React, { createContext, useCallback, useContext } from 'react';",
+      "",
+      "interface ${TM_FILENAME_BASE}Props {",
+      "  add${TM_FILENAME_BASE}(): void;",
+      "}",
+      "",
+      "const ${TM_FILENAME_BASE}Context = createContext<${TM_FILENAME_BASE}Props>({} as ${TM_FILENAME_BASE}Props);",
+      "",
+      "const ${TM_FILENAME_BASE}Provider: React.FC = ({ children }) => {",
+      "  const add${TM_FILENAME_BASE} = useCallback(() => {",
+      "    console.log('add${TM_FILENAME_BASE}');",
+      "  }, []);",
+      "",
+      "  return (",
+      "    <${TM_FILENAME_BASE}Context.Provider value={{ add${TM_FILENAME_BASE} }}>",
+      "      {children}",
+      "    </${TM_FILENAME_BASE}Context.Provider>",
+      "  );",
+      "};",
+      "",
+      "function use${TM_FILENAME_BASE}(): ${TM_FILENAME_BASE}Props {",
+      "  const context = useContext(${TM_FILENAME_BASE}Context);",
+      "",
+      "  if (!context) {",
+      "    throw new Error('O Provider de ${TM_FILENAME_BASE} é necessário na API da aplicação');",
+      "  }",
+      "",
+      "  return context;",
+      "}",
+      "",
+      "export { ${TM_FILENAME_BASE}Provider, use${TM_FILENAME_BASE} };",
+    ]
+  },
+
+
+  "Template": {
+    "prefix": "00000",
+    "body": [
+      ""
+    ]
+  },
+
+}
+
+

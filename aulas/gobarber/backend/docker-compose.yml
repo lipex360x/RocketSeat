@@ -1,0 +1,34 @@
+version: '3'
+
+networks:
+  gobarber:
+    driver: bridge
+
+services:
+  postgresdb:
+    image: postgres
+    container_name: gobarber_postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=docker
+      - POSTGRES_DB=postdb
+    networks:
+      - gobarber
+    ports:
+      - "5433:5432"
+
+  # mongodb:
+  #   image: mongo
+  #   container_name: mongo
+  #   networks:
+  #     - api
+  #   ports:
+  #     - "27017:27017"
+
+  # redisdb:
+  #   image: redis
+  #   container_name: redis
+  #   networks:
+  #     - api
+  #   ports:
+  #     - "6379:6379"
