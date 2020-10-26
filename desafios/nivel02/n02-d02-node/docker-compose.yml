@@ -1,0 +1,30 @@
+version: '3'
+
+networks:
+  api:
+    driver: bridge
+
+services:
+  postgresdb:
+    image: postgres
+    container_name: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=docker
+      - POSTGRES_DB=gostack_desafio06
+    networks:
+      - api
+    ports:
+      - "5432:5432"
+
+  postgresdb_test:
+    image: postgres
+    container_name: postgres_test
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=docker
+      - POSTGRES_DB=gostack_desafio06_tests
+    networks:
+      - api
+    ports:
+      - "5433:5432"
