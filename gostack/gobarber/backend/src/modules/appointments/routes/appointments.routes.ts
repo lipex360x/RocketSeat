@@ -5,6 +5,11 @@ import AppointmentsRepository from '../repositories/AppointmentsRepository'
 const router = Router()
 const appointmentsRepository = new AppointmentsRepository()
 
+router.get('/', (request, response) => {
+  const appointments = appointmentsRepository.findAll()
+  return response.json(appointments)
+})
+
 router.post('/', (request, response) => {
   const { provider, date } = request.body
 
