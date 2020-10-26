@@ -1,6 +1,6 @@
 import { Router } from 'express'
-import { v4 as uuid } from 'uuid'
 import { startOfHour, parseISO, isEqual } from 'date-fns'
+import Appointment from '../entities/Appointment'
 
 const router = Router()
 
@@ -17,14 +17,9 @@ router.post('/', (request, response) => {
 
   const parsedDate = startOfHour(parseISO(date))
   const findAppointment = appointments.find(appointment => isEqual(parsedDate, appointment.date))
+  const appointment = new Appointment({ date, provider })
 
   if (findAppointment) return response.status(400).json({ message: 'This appointment is already booked' })
-
-  const appointment = {
-    id: uuid(),
-    provider,
-    date: parsedDate
-  }
 
   appointments.push(appointment)
 
