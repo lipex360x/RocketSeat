@@ -1,29 +1,15 @@
-import { isEqual } from 'date-fns'
+import { EntityRepository, Repository } from 'typeorm'
 import Appointment from '../../entities/Appointment'
-import IRepository, { CreateProps, FindByDateProps } from '../IRepository'
 
-export default class AppointmentsRepository implements IRepository {
-  private appointments: Appointment[]
+import { FindByDateProps } from '../IRepository'
 
-  constructor () {
-    this.appointments = []
-  }
-
+@EntityRepository(Appointment)
+export default class AppointmentsRepository extends Repository<Appointment> {
   async findByDate ({ date }:FindByDateProps): Promise<Appointment> {
-    const findAppointment = this.appointments.find(appointment => isEqual(date, appointment.date))
+    const findAppointment = await this.findOne({
+      where: { date }
+    })
 
     return findAppointment
-  }
-
-  async findAll (): Promise<Appointment[]> {
-    return this.appointments
-  }
-
-  async create ({ provider, date }:CreateProps): Promise<Appointment> {
-    const appointment = new Appointment({ date, provider })
-
-    this.appointments.push(appointment)
-
-    return appointment
   }
 }

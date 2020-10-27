@@ -1,14 +1,25 @@
+import { BeforeInsert, Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn } from 'typeorm'
 import { v4 as uuid } from 'uuid'
 
+@Entity('appointments')
 export default class Appointment {
-  id: string
+  @PrimaryColumn()
+  id?: string
 
+  @Column()
   provider: string
 
+  @Column('time with time zone')
   date: Date
-  constructor (props: Omit<Appointment, 'id'>, id?: string) {
-    Object.assign(this, props)
 
-    if (!id) this.id = uuid()
+  @CreateDateColumn()
+  created_at: Date
+
+  @UpdateDateColumn()
+  updated_at: Date
+
+  @BeforeInsert()
+  appointmentId () {
+    this.id = uuid()
   }
 }
