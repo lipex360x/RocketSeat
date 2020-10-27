@@ -1,6 +1,8 @@
 import { NextFunction, Request, Response } from 'express'
 import { verify } from 'jsonwebtoken'
 
+import AppError from '@shared/errors/AppError'
+
 interface TokenPayload {
   iat: number
   exp: number
@@ -11,7 +13,7 @@ export default function sessionStarted (request:Request, response:Response, next
   const tokenHeader = request.headers.authorization
 
   if (!tokenHeader) {
-    throw new Error('JWT token is missing')
+    throw new AppError('JWT token is missing')
   }
 
   const [, token] = tokenHeader.split(' ')
@@ -27,6 +29,6 @@ export default function sessionStarted (request:Request, response:Response, next
 
     return next()
   } catch {
-    throw new Error('Invalid JWT Token')
+    throw new AppError('Invalid JWT Token')
   }
 }

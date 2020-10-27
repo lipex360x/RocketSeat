@@ -1,5 +1,6 @@
 import { getRepository } from 'typeorm'
 
+import AppError from '@shared/errors/AppError'
 import User from '../../entities/User'
 
 interface Request {
@@ -15,7 +16,7 @@ export default class CreateUserService {
     const getUser = await repository.findOne({ where: { email } })
 
     if (getUser) {
-      throw new Error('Email address already used')
+      throw new AppError('Email address already used')
     }
 
     const newUser = repository.create({ name, email, password })

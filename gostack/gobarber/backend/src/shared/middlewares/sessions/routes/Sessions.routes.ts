@@ -7,15 +7,12 @@ router.post('/', async (request, response) => {
   const createSession = new CreateSessionService()
 
   const { email, password } = request.body
-  try {
-    const { user, token } = await createSession.execute({ email, password })
 
-    delete user.password
+  const { user, token } = await createSession.execute({ email, password })
 
-    return response.json({ user, token })
-  } catch (error) {
-    return response.status(400).json({ message: error.message })
-  }
+  delete user.password
+
+  return response.json({ user, token })
 })
 
 export default router

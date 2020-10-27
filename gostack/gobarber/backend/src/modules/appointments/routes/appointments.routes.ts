@@ -25,12 +25,9 @@ router.post('/', async (request, response) => {
 
   const parsedDate = parseISO(date)
 
-  try {
-    const appointment = await createAppointment.execute({ date: parsedDate, provider_id })
-    return response.json(appointment)
-  } catch (error) {
-    return response.status(400).json({ message: error.message })
-  }
+  const appointment = await createAppointment.execute({ date: parsedDate, provider_id })
+
+  return response.json(appointment)
 })
 
 export default router

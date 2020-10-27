@@ -15,15 +15,11 @@ router.post('/', async (request, response) => {
 
   const createUser = new CreateUserService()
 
-  try {
-    const user = await createUser.execute({ name, email, password })
+  const user = await createUser.execute({ name, email, password })
 
-    delete user.password
+  delete user.password
 
-    return response.json(user)
-  } catch (error) {
-    return response.status(400).json({ message: error.message })
-  }
+  return response.json(user)
 })
 
 router.use(sessionStarted)
@@ -31,20 +27,16 @@ router.patch('/avatar', upload.single('avatar'), async (request, response) => {
   const avatarFile = request.file.filename
   const { id } = request.user
 
-  try {
-    const updateAvatar = new UpdateAvatarService()
+  const updateAvatar = new UpdateAvatarService()
 
-    const user = await updateAvatar.execute({
-      avatarFilename: avatarFile,
-      user_id: id
-    })
+  const user = await updateAvatar.execute({
+    avatarFilename: avatarFile,
+    user_id: id
+  })
 
-    delete user.password
+  delete user.password
 
-    response.json(user)
-  } catch (error) {
-
-  }
+  response.json(user)
 })
 
 export default router
