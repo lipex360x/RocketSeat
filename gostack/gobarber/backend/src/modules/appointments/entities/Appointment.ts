@@ -24,7 +24,7 @@ export default class Appointment {
   updated_at: Date
 
   @BeforeInsert()
-  appointmentId () {
+  appointmentProps () {
     this.id = uuid()
   }
 }

@@ -17,11 +17,11 @@ router.get('/', async (request, response) => {
 router.post('/', async (request, response) => {
   const { provider_id, date } = request.body
 
+  const createAppointment = new CreateAppointmentService()
+
   const parsedDate = parseISO(date)
 
   try {
-    const createAppointment = new CreateAppointmentService()
-
     const appointment = await createAppointment.execute({ date: parsedDate, provider_id })
     return response.json(appointment)
   } catch (error) {

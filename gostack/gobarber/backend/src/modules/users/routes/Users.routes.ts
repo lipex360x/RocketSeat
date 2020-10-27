@@ -5,9 +5,10 @@ const router = Router()
 
 router.post('/', async (request, response) => {
   const { name, email, password } = request.body
-  try {
-    const createUser = new CreateUserService()
 
+  const createUser = new CreateUserService()
+
+  try {
     const user = await createUser.execute({ name, email, password })
 
     delete user.password
