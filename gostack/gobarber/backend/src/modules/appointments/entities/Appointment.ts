@@ -1,5 +1,6 @@
-import { BeforeInsert, Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn } from 'typeorm'
+import { BeforeInsert, Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn, UpdateDateColumn } from 'typeorm'
 import { v4 as uuid } from 'uuid'
+import User from '@modules/users/entities/User'
 
 @Entity('appointments')
 export default class Appointment {
@@ -7,7 +8,11 @@ export default class Appointment {
   id?: string
 
   @Column()
-  provider: string
+  provider_id: string
+
+  @ManyToOne(() => User)
+  @JoinColumn({ name: 'provider_id' })
+  provider: User
 
   @Column('time with time zone')
   date: Date
