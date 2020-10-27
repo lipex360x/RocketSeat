@@ -2,7 +2,7 @@ import { Router } from 'express'
 
 import AppointmentsRouter from '@modules/appointments/routes/appointments.routes'
 import UsersRouter from '@modules/users/routes/Users.routes'
-import SessionsRouter from '@modules/users/routes/Sessions.routes'
+import SessionsRouter from '@shared/middlewares/sessions/routes/Sessions.routes'
 
 const router = Router()
 

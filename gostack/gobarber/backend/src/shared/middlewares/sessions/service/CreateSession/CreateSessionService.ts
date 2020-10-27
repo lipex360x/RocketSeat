@@ -2,7 +2,7 @@ import { getRepository } from 'typeorm'
 import { compare } from 'bcryptjs'
 import { sign } from 'jsonwebtoken'
 
-import User from '../../entities/User'
+import User from '@modules/users/entities/User'
 
 interface Request {
   email: string
@@ -28,9 +28,9 @@ export default class CreateSessionService {
       throw Error('Incorrect email/password combination')
     }
 
-    const token = sign({}, 'b930b02b4c1d8e16aa2beb7877fdb5af', {
+    const token = sign({}, process.env.JWT_TOKEN, {
       subject: getUser.id,
-      expiresIn: '1d'
+      expiresIn: process.env.JWT_EXPIRES
     })
 
     return {

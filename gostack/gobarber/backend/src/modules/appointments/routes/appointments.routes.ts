@@ -1,10 +1,14 @@
 import { Router } from 'express'
 import { parseISO } from 'date-fns'
 import { getCustomRepository } from 'typeorm'
+
+import sessionStarted from '@shared/middlewares/sessions/sessionStarted'
 import AppointmentsRepository from '../repositories/implementations/AppointmentsRepository'
 import CreateAppointmentService from '../services/CreateAppointment/CreateAppointmentService'
 
 const router = Router()
+
+router.use(sessionStarted)
 
 router.get('/', async (request, response) => {
   const repository = getCustomRepository(AppointmentsRepository)
