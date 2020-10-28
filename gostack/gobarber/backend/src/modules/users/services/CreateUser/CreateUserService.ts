@@ -1,3 +1,5 @@
+import { inject, injectable } from 'tsyringe'
+
 import AppError from '@shared/errors/AppError'
 import User from '../../entities/User'
 import IUsersRepository from '@modules/users/repositories/IUsersRepository'
@@ -7,9 +9,12 @@ interface Request {
   email: string
   password: string
 }
-
+@injectable()
 export default class CreateUserService {
-  constructor (private repository: IUsersRepository) { }
+  constructor (
+    @inject('UsersRepository')
+    private repository: IUsersRepository
+  ) {}
 
   async execute ({ name, email, password }:Request): Promise<User> {
     const getUser = await this.repository.findByEmail({ email })

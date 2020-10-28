@@ -1,8 +1,8 @@
 import { Router } from 'express'
 import { parseISO } from 'date-fns'
+import { container } from 'tsyringe'
 
 import sessionStarted from '@shared/middlewares/sessions/sessionStarted'
-import AppointmentsRepository from '../repositories/implementations/AppointmentsRepository'
 import CreateAppointmentService from '../services/CreateAppointment/CreateAppointmentService'
 
 const router = Router()
@@ -18,9 +18,7 @@ router.get('/', async (request, response) => {
 router.post('/', async (request, response) => {
   const { provider_id, date } = request.body
 
-  const repository = new AppointmentsRepository()
-
-  const createAppointment = new CreateAppointmentService(repository)
+  const createAppointment = container.resolve(CreateAppointmentService)
 
   const parsedDate = parseISO(date)
 

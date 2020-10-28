@@ -1,3 +1,4 @@
+import { inject, injectable } from 'tsyringe'
 import { compare } from 'bcryptjs'
 import { sign } from 'jsonwebtoken'
 
@@ -14,8 +15,13 @@ interface Response{
   user: User
   token: string
 }
+
+@injectable()
 export default class CreateSessionService {
-  constructor (private repository: IUsersRepository) { }
+  constructor (
+    @inject('UsersRepository')
+    private repository: IUsersRepository
+  ) { }
 
   async execute ({ email, password }:Request): Promise<Response> {
     const getUser = await this.repository.findByEmail({ email })

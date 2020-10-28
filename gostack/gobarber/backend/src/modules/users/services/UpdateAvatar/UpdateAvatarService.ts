@@ -1,3 +1,4 @@
+import { inject, injectable } from 'tsyringe'
 import fs from 'fs'
 import path from 'path'
 
@@ -11,8 +12,12 @@ interface Request {
   avatarFilename: string
 }
 
+@injectable()
 export default class UpdateAvatarService {
-  constructor (private repository: IUsersRepository) { }
+  constructor (
+    @inject('UsersRepository')
+    private repository: IUsersRepository
+  ) {}
 
   async execute ({ user_id, avatarFilename }:Request): Promise<User> {
     const getUser = await this.repository.findById({ id: user_id })

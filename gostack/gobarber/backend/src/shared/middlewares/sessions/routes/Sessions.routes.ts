@@ -1,13 +1,11 @@
-import UsersRepository from '@modules/users/repositories/implementations/UsersRepository'
+import { container } from 'tsyringe'
 import { Router } from 'express'
 import CreateSessionService from '../service/CreateSession/CreateSessionService'
 
 const router = Router()
 
 router.post('/', async (request, response) => {
-  const repository = new UsersRepository()
-
-  const createSession = new CreateSessionService(repository)
+  const createSession = container.resolve(CreateSessionService)
 
   const { email, password } = request.body
 
