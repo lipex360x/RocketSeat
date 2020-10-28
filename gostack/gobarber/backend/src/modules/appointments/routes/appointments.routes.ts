@@ -1,9 +1,9 @@
 import { Router } from 'express'
 
 import sessionStarted from '@shared/middlewares/sessions/sessionStarted'
-import AppointmentsController from '../controllers/AppointmentsController'
+import CreateAppointmentsController from '../services/CreateAppointment/CreateAppointmentsController'
 
-const appointmentsController = new AppointmentsController()
+const createAppointmentsController = new CreateAppointmentsController()
 
 const router = Router()
 
@@ -15,6 +15,6 @@ router.get('/', async (request, response) => {
   // return response.json(appointments)
 })
 
-router.post('/', appointmentsController.create)
+router.post('/', createAppointmentsController.create)
 
 export default router

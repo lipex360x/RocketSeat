@@ -14,7 +14,8 @@ implements MigrationInterface {
           },
           {
             name: 'provider',
-            type: 'varchar'
+            type: 'varchar',
+            isNullable: true
           },
           {
             name: 'date',

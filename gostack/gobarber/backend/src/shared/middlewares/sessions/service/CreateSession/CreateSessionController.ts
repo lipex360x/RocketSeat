@@ -1,11 +1,10 @@
 // index, show, create, update, delete
-
 import { Request, Response } from 'express'
 import { container } from 'tsyringe'
 
-import CreateSessionService from '../service/CreateSession/CreateSessionService'
+import CreateSessionService from './CreateSessionService'
 
-export default class SessionsController {
+export default class CreateSessionController {
   async create (request:Request, response: Response): Promise<Response> {
     const createSession = container.resolve(CreateSessionService)
 

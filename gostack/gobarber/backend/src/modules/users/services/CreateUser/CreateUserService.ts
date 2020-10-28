@@ -1,7 +1,8 @@
 import { inject, injectable } from 'tsyringe'
 
 import AppError from '@shared/errors/AppError'
-import User from '../../entities/User'
+
+import User from '@modules/users/entities/User'
 import IUsersRepository from '@modules/users/repositories/IUsersRepository'
 
 interface Request {
@@ -9,6 +10,7 @@ interface Request {
   email: string
   password: string
 }
+
 @injectable()
 export default class CreateUserService {
   constructor (

@@ -1,9 +1,9 @@
 import { container } from 'tsyringe'
 import { Request, Response } from 'express'
 
-import UpdateAvatarService from '../services/UpdateAvatar/UpdateAvatarService'
+import UpdateAvatarService from './UpdateAvatarService'
 
-export default class UserAvatarController {
+export default class UpdateAvatarController {
   async update (request: Request, response: Response): Promise<Response> {
     const avatarFile = request.file.filename
     const { id } = request.user

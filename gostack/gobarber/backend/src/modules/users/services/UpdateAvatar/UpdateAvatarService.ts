@@ -4,6 +4,7 @@ import path from 'path'
 
 import AppError from '@shared/errors/AppError'
 import uploadConfig from '@config/upload.config'
+
 import User from '@modules/users/entities/User'
 import IUsersRepository from '@modules/users/repositories/IUsersRepository'
 

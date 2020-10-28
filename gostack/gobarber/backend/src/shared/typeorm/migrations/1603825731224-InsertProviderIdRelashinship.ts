@@ -42,7 +42,8 @@ implements MigrationInterface {
       'appointments',
       new TableColumn({
         name: 'provider',
-        type: 'varchar'
+        type: 'varchar',
+        isNullable: true
       })
     )
   }

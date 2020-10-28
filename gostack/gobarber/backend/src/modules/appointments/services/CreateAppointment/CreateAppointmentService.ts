@@ -2,7 +2,8 @@ import { startOfHour } from 'date-fns'
 import { injectable, inject } from 'tsyringe'
 
 import AppError from '@shared/errors/AppError'
-import Appointment from '../../entities/Appointment'
+
+import Appointment from '@modules/appointments/entities/Appointment'
 import IAppointmentsRepository from '@modules/appointments/repositories/IAppointmentsRepository'
 
 interface Request {
