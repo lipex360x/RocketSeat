@@ -1,5 +1,5 @@
 import { getRepository, Repository } from 'typeorm'
-import Appointment from '../../entities/Appointment'
+import Appointment from '@modules/appointments/entities/Appointment'
 
 import InterfaceRepository, { CreateProps, FindByDateProps } from '../IAppointmentsRepository'
 

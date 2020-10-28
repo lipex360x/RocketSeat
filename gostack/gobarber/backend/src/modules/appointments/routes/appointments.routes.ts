@@ -1,7 +1,7 @@
 import { Router } from 'express'
 
 import sessionStarted from '@shared/middlewares/sessions/sessionStarted'
-import CreateAppointmentsController from '../services/CreateAppointment/CreateAppointmentsController'
+import CreateAppointmentsController from '../controllers/CreateAppointmentsController'
 
 const createAppointmentsController = new CreateAppointmentsController()
 

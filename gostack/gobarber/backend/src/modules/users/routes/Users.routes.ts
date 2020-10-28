@@ -4,8 +4,8 @@ import multer from 'multer'
 import uploadConfig from '@config/upload.config'
 import sessionStarted from '@shared/middlewares/sessions/sessionStarted'
 
-import UsersController from '../services/CreateUser/CreateUserController'
-import UpdateAvatarController from '../services/UpdateAvatar/UpdateAvatarController'
+import UsersController from '../controller/CreateUserController'
+import UpdateAvatarController from '../controller/UpdateAvatarController'
 
 const usersController = new UsersController()
 const updateAvatarController = new UpdateAvatarController()
