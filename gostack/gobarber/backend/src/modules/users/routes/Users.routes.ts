@@ -6,6 +6,7 @@ import uploadConfig from '@config/upload.config'
 import sessionStarted from '@shared/middlewares/sessions/sessionStarted'
 import CreateUserService from '../services/CreateUser/CreateUserService'
 import UpdateAvatarService from '../services/UpdateAvatar/UpdateAvatarService'
+import UsersRepository from '../repositories/implementations/UsersRepository'
 
 const router = Router()
 const upload = multer(uploadConfig)
@@ -13,7 +14,9 @@ const upload = multer(uploadConfig)
 router.post('/', async (request, response) => {
   const { name, email, password } = request.body
 
-  const createUser = new CreateUserService()
+  const repository = new UsersRepository()
+
+  const createUser = new CreateUserService(repository)
 
   const user = await createUser.execute({ name, email, password })
 
@@ -27,7 +30,9 @@ router.patch('/avatar', upload.single('avatar'), async (request, response) => {
   const avatarFile = request.file.filename
   const { id } = request.user
 
-  const updateAvatar = new UpdateAvatarService()
+  const repository = new UsersRepository()
+
+  const updateAvatar = new UpdateAvatarService(repository)
 
   const user = await updateAvatar.execute({
     avatarFilename: avatarFile,

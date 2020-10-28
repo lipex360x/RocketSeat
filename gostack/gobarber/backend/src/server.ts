@@ -1,4 +1,3 @@
-import logger from '@shared/logger/logger'
 import app from './app'
 
 const server = app.listen(3333, () => console.log('🚀 API Started at Port 3333'))

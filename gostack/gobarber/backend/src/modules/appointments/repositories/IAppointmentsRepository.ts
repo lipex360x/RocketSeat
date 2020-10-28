@@ -1,7 +1,7 @@
 import Appointment from '../entities/Appointment'
 
 export interface CreateProps {
-  provider: string
+  provider_id: string
   date: Date
 }
 
@@ -9,8 +9,7 @@ export interface FindByDateProps {
   date: Date
 }
 
-export default interface IRepository {
-  create(data: CreateProps): Promise<Appointment>
+export default interface IAppointmentsRepository {
   findByDate(data:FindByDateProps): Promise<Appointment>
-  findAll(): Promise<Appointment[]>
+  create(data: CreateProps): Promise<Appointment>
 }

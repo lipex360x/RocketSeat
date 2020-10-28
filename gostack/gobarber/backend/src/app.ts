@@ -3,7 +3,6 @@ import 'dotenv/config'
 import express, { NextFunction, Request, Response } from 'express'
 import 'express-async-errors'
 
-import '@shared/logger/logger'
 import AppError from '@shared/errors/AppError'
 import connectDB from '@shared/typeorm'
 import routes from '@shared/routes'

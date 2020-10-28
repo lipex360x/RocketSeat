@@ -7,7 +7,7 @@ networks:
 services:
   postgresdb:
     image: postgres
-    container_name: gobarber_postgres
+    container_name: barber
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=docker

@@ -1,10 +1,13 @@
+import UsersRepository from '@modules/users/repositories/implementations/UsersRepository'
 import { Router } from 'express'
 import CreateSessionService from '../service/CreateSession/CreateSessionService'
 
 const router = Router()
 
 router.post('/', async (request, response) => {
-  const createSession = new CreateSessionService()
+  const repository = new UsersRepository()
+
+  const createSession = new CreateSessionService(repository)
 
   const { email, password } = request.body
 

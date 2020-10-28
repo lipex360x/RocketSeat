@@ -1,9 +1,9 @@
-import { getRepository } from 'typeorm'
 import { compare } from 'bcryptjs'
 import { sign } from 'jsonwebtoken'
 
 import AppError from '@shared/errors/AppError'
 import User from '@modules/users/entities/User'
+import IUsersRepository from '@modules/users/repositories/IUsersRepository'
 
 interface Request {
   email: string
@@ -15,10 +15,10 @@ interface Response{
   token: string
 }
 export default class CreateSessionService {
-  async execute ({ email, password }:Request): Promise<Response> {
-    const repository = getRepository(User)
+  constructor (private repository: IUsersRepository) { }
 
-    const getUser = await repository.findOne({ where: { email } })
+  async execute ({ email, password }:Request): Promise<Response> {
+    const getUser = await this.repository.findByEmail({ email })
 
     if (!getUser) {
       throw new AppError('Incorrect email/password combination', 407)
