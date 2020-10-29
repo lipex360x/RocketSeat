@@ -1,6 +1,5 @@
 import { BeforeInsert, Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn } from 'typeorm'
 import { v4 as uuid } from 'uuid'
-import { hash } from 'bcryptjs'
 
 @Entity('users')
 export default class User {
@@ -28,6 +27,5 @@ export default class User {
   @BeforeInsert()
   async userProps () {
     this.id = uuid()
-    this.password = await hash(this.password, 8)
   }
 }

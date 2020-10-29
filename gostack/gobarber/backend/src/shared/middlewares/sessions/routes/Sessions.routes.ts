@@ -1,6 +1,6 @@
 import { Router } from 'express'
 
-import CreateSessionController from '../service/CreateSession/CreateSessionController'
+import CreateSessionController from '../controllers/CreateSessionController'
 
 const createSessionController = new CreateSessionController()
 

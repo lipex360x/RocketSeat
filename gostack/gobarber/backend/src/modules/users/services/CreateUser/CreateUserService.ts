@@ -1,4 +1,5 @@
 import { inject, injectable } from 'tsyringe'
+import { hash } from 'bcryptjs'
 
 import AppError from '@shared/errors/AppError'
 
@@ -25,7 +26,13 @@ export default class CreateUserService {
       throw new AppError('Email address already used')
     }
 
-    const newUser = this.repository.create({ name, email, password })
+    const passwordEncrypt = await hash(password, 8)
+
+    const newUser = this.repository.create({
+      name,
+      email,
+      password: passwordEncrypt
+    })
 
     return newUser
   }

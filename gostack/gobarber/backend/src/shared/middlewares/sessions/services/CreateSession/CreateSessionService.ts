@@ -2,6 +2,8 @@ import { inject, injectable } from 'tsyringe'
 import { compare } from 'bcryptjs'
 import { sign } from 'jsonwebtoken'
 
+import sessionConfig from '@config/session.config'
+
 import AppError from '@shared/errors/AppError'
 import User from '@modules/users/entities/User'
 import IUsersRepository from '@modules/users/repositories/IUsersRepository'
@@ -27,17 +29,18 @@ export default class CreateSessionService {
     const getUser = await this.repository.findByEmail({ email })
 
     if (!getUser) {
-      throw new AppError('Incorrect email/password combination', 407)
+      throw new AppError('Incorrect email', 401)
     }
 
     const passwordMached = await compare(password, getUser.password)
     if (!passwordMached) {
-      throw new AppError('Incorrect email/password combination', 407)
+      throw new AppError('Incorrect password', 401)
     }
 
-    const token = sign({}, process.env.JWT_TOKEN, {
+    const { secret, expiresIn } = sessionConfig.jwt
+    const token = sign({}, secret, {
       subject: getUser.id,
-      expiresIn: process.env.JWT_EXPIRES
+      expiresIn: expiresIn
     })
 
     return {

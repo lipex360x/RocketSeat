@@ -9,8 +9,8 @@
     "dev": "ts-node-dev -r tsconfig-paths/register --inspect --inspect --transpile-only --ignore-watch node_modules src/server.ts",
     "orm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
     "test": "jest --passWithNoTests --silent --noStackTrace",
-    "test:clear": "jest --clearCache",
-    "test:verbose": "jest --passWithNoTests"
+    "test:c": "jest --clearCache",
+    "test:v": "jest --passWithNoTests"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.1",

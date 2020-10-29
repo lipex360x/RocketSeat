@@ -7,7 +7,7 @@ import CreateUserService from './CreateUserService'
 let fakeUsersRepository: FakeUsersRepository
 let createUserService: CreateUserService
 
-describe('CreateAppointment', () => {
+describe('CreateUser', () => {
   beforeEach(() => {
     fakeUsersRepository = new FakeUsersRepository()
     createUserService = new CreateUserService(fakeUsersRepository)
