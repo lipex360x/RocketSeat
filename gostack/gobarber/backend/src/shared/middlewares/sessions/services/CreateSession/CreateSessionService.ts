@@ -32,12 +32,12 @@ export default class CreateSessionService {
     const getUser = await this.repository.findByEmail({ email })
 
     if (!getUser) {
-      throw new AppError('Incorrect email', 401)
+      throw new AppError('Combination user/password is wrong', 401)
     }
 
     const passwordMached = await this.encrypt.compare({ payload: password, hashed: getUser.password })
     if (!passwordMached) {
-      throw new AppError('Incorrect password', 401)
+      throw new AppError('Combination user/password is wrong', 401)
     }
 
     const { secret, expiresIn } = sessionConfig.jwt
