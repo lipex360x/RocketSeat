@@ -1,11 +1,11 @@
 import { inject, injectable } from 'tsyringe'
-import { compare } from 'bcryptjs'
 import { sign } from 'jsonwebtoken'
 
 import sessionConfig from '@config/session.config'
 
 import AppError from '@shared/errors/AppError'
 import User from '@modules/users/entities/User'
+import IEncrypt from '@modules/users/providers/Encrypt/IEncrypt'
 import IUsersRepository from '@modules/users/repositories/IUsersRepository'
 
 interface Request {
@@ -22,7 +22,10 @@ interface Response{
 export default class CreateSessionService {
   constructor (
     @inject('UsersRepository')
-    private repository: IUsersRepository
+    private repository: IUsersRepository,
+
+    @inject('Encrypt')
+    private encrypt: IEncrypt
   ) { }
 
   async execute ({ email, password }:Request): Promise<Response> {
@@ -32,7 +35,7 @@ export default class CreateSessionService {
       throw new AppError('Incorrect email', 401)
     }
 
-    const passwordMached = await compare(password, getUser.password)
+    const passwordMached = await this.encrypt.compare({ payload: password, hashed: getUser.password })
     if (!passwordMached) {
       throw new AppError('Incorrect password', 401)
     }

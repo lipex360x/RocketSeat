@@ -1,16 +1,18 @@
 import AppError from '@shared/errors/AppError'
 
 import FakeUsersRepository from '@modules/users/repositories/fakes/FakeUsersRepository'
-
+import FakeEncrypt from '@modules/users/providers/Encrypt/fakes/FakeEncrypt'
 import CreateUserService from './CreateUserService'
 
 let fakeUsersRepository: FakeUsersRepository
+let fakeEncrypt: FakeEncrypt
 let createUserService: CreateUserService
 
 describe('CreateUser', () => {
   beforeEach(() => {
     fakeUsersRepository = new FakeUsersRepository()
-    createUserService = new CreateUserService(fakeUsersRepository)
+    fakeEncrypt = new FakeEncrypt()
+    createUserService = new CreateUserService(fakeUsersRepository, fakeEncrypt)
   })
 
   it('should be able to create a new user', async () => {
