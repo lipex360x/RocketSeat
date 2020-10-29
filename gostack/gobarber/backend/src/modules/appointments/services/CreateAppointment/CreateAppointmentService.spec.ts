@@ -1,29 +1,30 @@
-// App Error
+// Import App Error
 import AppError from '@shared/errors/AppError'
 
-// Fake Repository
+// Import Fakes
 import FakeAppointmentsRepository from '@modules/appointments/repositories/fakes/FakeAppointmentsRepository'
 
-// Service
+// Import Services
 import CreateAppointmentService from './CreateAppointmentService'
 
-// let fakeRepository
+// let fakes: Fakes
 let fakeAppointmentsRepository: FakeAppointmentsRepository
 
-// let service
+// let services: Services
 let createAppointmentService: CreateAppointmentService
 
 describe('CreateAppointment', () => {
   beforeEach(() => {
-    // Fake Repository
+    // Instance Fakes
     fakeAppointmentsRepository = new FakeAppointmentsRepository()
 
-    // Service
+    // Instance Services
     createAppointmentService = new CreateAppointmentService(
       fakeAppointmentsRepository
     )
   })
 
+  // its ...
   it('should be able to create an appointment', async () => {
     // Service Execute...
     const appointment = await createAppointmentService.execute({
