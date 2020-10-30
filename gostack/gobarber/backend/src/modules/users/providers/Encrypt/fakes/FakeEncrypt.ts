@@ -1,11 +1,11 @@
 import IEncrypt, { CompareProps, GenerateProps } from '../interfaces/IEncrypt'
 
 export default class FakeEncrypt implements IEncrypt {
-  async generate ({ payload }:GenerateProps): Promise<string> {
-    return payload
+  async generate ({ password }:GenerateProps): Promise<string> {
+    return password
   }
 
-  async compare ({ payload, hashed }:CompareProps): Promise<boolean> {
-    return payload === hashed
+  async compare ({ password, hashed }:CompareProps): Promise<boolean> {
+    return password === hashed
   }
 }

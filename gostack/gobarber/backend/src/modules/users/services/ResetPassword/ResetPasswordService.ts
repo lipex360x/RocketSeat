@@ -1,8 +1,10 @@
+import AppError from '@shared/errors/AppError'
+import { addHours, isAfter } from 'date-fns'
 import { inject, injectable } from 'tsyringe'
 
 import IUsersRepository from '@modules/users/repositories/interfaces/IUsersRepository'
 import IUserTokensRepository from '@modules/users/repositories/interfaces/IUserTokensRepository'
-import AppError from '@shared/errors/AppError'
+import IEncrypt from '@modules/users/providers/Encrypt/interfaces/IEncrypt'
 
 interface Request {
   token: string
@@ -16,7 +18,10 @@ export default class SendForgotPasswordEmailService {
     private repository: IUsersRepository,
 
     @inject('UserToken')
-    private userToken: IUserTokensRepository
+    private userToken: IUserTokensRepository,
+
+    @inject('Encrypt')
+    private encrypt: IEncrypt
   ) {}
 
   async execute ({ token, password }:Request): Promise<void> {
@@ -31,7 +36,14 @@ export default class SendForgotPasswordEmailService {
       throw new AppError('User does not exists')
     }
 
-    getUser.password = password
+    const tokenCreatedAt = getUserToken.created_at
+    const compareDate = addHours(tokenCreatedAt, 2)
+
+    if (isAfter(Date.now(), compareDate)) {
+      throw new AppError('Token exipired')
+    }
+
+    getUser.password = await this.encrypt.generate({ password })
 
     await this.repository.save({ user: getUser })
   }

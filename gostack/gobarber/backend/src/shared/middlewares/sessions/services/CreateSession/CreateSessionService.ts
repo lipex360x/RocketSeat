@@ -35,7 +35,7 @@ export default class CreateSessionService {
       throw new AppError('Combination user/password is wrong', 401)
     }
 
-    const passwordMached = await this.encrypt.compare({ payload: password, hashed: getUser.password })
+    const passwordMached = await this.encrypt.compare({ password, hashed: getUser.password })
     if (!passwordMached) {
       throw new AppError('Combination user/password is wrong', 401)
     }

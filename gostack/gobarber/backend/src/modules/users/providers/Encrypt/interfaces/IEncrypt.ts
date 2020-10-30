@@ -1,9 +1,9 @@
 export interface GenerateProps {
-  payload: string
+  password: string
 }
 
 export interface CompareProps {
-  payload: string
+  password: string
   hashed: string
 }
 

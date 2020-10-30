@@ -28,7 +28,7 @@ export default class CreateUserService {
       throw new AppError('Email address already used')
     }
 
-    const passwordEncrypt = await this.encrypt.encrypt({ payload: password })
+    const passwordEncrypt = await this.encrypt.generate({ password })
 
     const newUser = this.repository.create({
       name,
