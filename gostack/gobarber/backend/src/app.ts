@@ -7,7 +7,7 @@ import 'express-async-errors'
 import AppError from '@shared/errors/AppError'
 import connectDB from '@shared/typeorm'
 import routes from '@shared/routes'
-import uploadConfig from '@config/upload.config'
+import storageConfig from '@shared/container/providers/StorageFiles/config/storage.config'
 
 import '@shared/container'
 
@@ -15,7 +15,7 @@ const app = express()
 connectDB()
 
 app.use(express.json())
-app.use('/files', express.static(uploadConfig.tmpFolder))
+app.use('/files', express.static(storageConfig.tmpFolder))
 
 app.use(routes)
 app.use((err: Error, request: Request, response: Response, _: NextFunction) => {

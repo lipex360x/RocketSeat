@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import multer from 'multer'
 
-import uploadConfig from '@config/upload.config'
+import storageConfig from '@shared/container/providers/StorageFiles/config/storage.config'
 import sessionStarted from '@shared/middlewares/sessions/sessionStarted'
 
 import UsersController from '../controller/CreateUserController'
@@ -11,7 +11,7 @@ const usersController = new UsersController()
 const updateAvatarController = new UpdateAvatarController()
 
 const router = Router()
-const upload = multer(uploadConfig)
+const upload = multer(storageConfig)
 
 router.post('/', usersController.create)
 

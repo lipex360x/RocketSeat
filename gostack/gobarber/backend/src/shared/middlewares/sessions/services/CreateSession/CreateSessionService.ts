@@ -1,7 +1,7 @@
 import { inject, injectable } from 'tsyringe'
 import { sign } from 'jsonwebtoken'
 
-import sessionConfig from '@config/session.config'
+import sessionConfig from '@shared/middlewares/sessions/config/session.config'
 
 import AppError from '@shared/errors/AppError'
 import User from '@modules/users/entities/User'
