@@ -3,7 +3,7 @@ interface VariablesProps {
 }
 
 export interface ParserProps {
-  template: string;
+  file: string;
   variables: VariablesProps
 }
 

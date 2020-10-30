@@ -1,7 +1,7 @@
-import IMailTemplates, { ParserProps } from '../interfaces/IMailTemplates'
+import IMailTemplates from '../interfaces/IMailTemplates'
 
 export default class FakeMailTemplate implements IMailTemplates {
-  async parser ({ template, variables }:ParserProps): Promise<string> {
-    return template
+  async parser (): Promise<string> {
+    return 'Mail Content'
   }
 }
