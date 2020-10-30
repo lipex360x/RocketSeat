@@ -1,4 +1,4 @@
-export interface EncryptProps {
+export interface GenerateProps {
   payload: string
 }
 
@@ -8,6 +8,6 @@ export interface CompareProps {
 }
 
 export default interface IEncrypt {
-  encrypt(data: EncryptProps): Promise<string>
+  generate(data: GenerateProps): Promise<string>
   compare(data: CompareProps): Promise<boolean>
 }
