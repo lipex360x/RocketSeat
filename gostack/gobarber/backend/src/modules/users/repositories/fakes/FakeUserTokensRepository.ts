@@ -3,7 +3,7 @@ import { v4 as uuid } from 'uuid'
 import UserToken from '@modules/users/entities/UserToken'
 import IUserTokensRepository, { GenerateProps } from '../interfaces/IUserTokensRepository'
 
-export default class FakeUserTokens implements IUserTokensRepository {
+export default class FakeUserTokensRepository implements IUserTokensRepository {
   private userTokens:UserToken[] = []
 
   async generate ({ user_id }:GenerateProps): Promise<UserToken> {

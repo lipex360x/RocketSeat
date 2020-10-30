@@ -1,6 +1,6 @@
 import { container } from 'tsyringe'
 
-import '@modules/users/providers'
+import '@modules/users/providers/injectProviders'
 import './providers/injectProviders'
 
 import IAppointmentsRepository from '@modules/appointments/repositories/IAppointmentsRepository'

@@ -1,14 +1,15 @@
 import AppError from '@shared/errors/AppError'
 
 import FakeUsersRepository from '@modules/users/repositories/fakes/FakeUsersRepository'
+import FakeUserTokensRepository from '@modules/users/repositories/fakes/FakeUserTokensRepository'
 import FakeEncrypt from '@modules/users/providers/Encrypt/fakes/FakeEncrypt'
 import FakeSendMail from '@shared/container/providers/SendMails/fakes/FakeSendMail'
-import FakeUserTokens from '@modules/users/repositories/fakes/FakeUserTokens'
 
 import CreateUserService from '../CreateUser/CreateUserService'
 import SendForgotPasswordEmailService from './SendForgotPasswordEmailService'
 
 let fakeUsersRepository: FakeUsersRepository
+let fakeUserTokensRepository: FakeUserTokensRepository
 let fakeEncrypt: FakeEncrypt
 let fakeSendMail: FakeSendMail
 
@@ -18,11 +19,17 @@ let sendForgotPasswordEmailService: SendForgotPasswordEmailService
 describe('SendForgotPassword', () => {
   beforeEach(() => {
     fakeUsersRepository = new FakeUsersRepository()
+    fakeUserTokensRepository = new FakeUserTokensRepository()
     fakeEncrypt = new FakeEncrypt()
     fakeSendMail = new FakeSendMail()
 
-    sendForgotPasswordEmailService = new SendForgotPasswordEmailService(fakeUsersRepository, fakeSendMail)
     createUserService = new CreateUserService(fakeUsersRepository, fakeEncrypt)
+
+    sendForgotPasswordEmailService = new SendForgotPasswordEmailService(
+      fakeUsersRepository,
+      fakeSendMail,
+      fakeUserTokensRepository
+    )
   })
 
   it('should be able to recover the password using email', async () => {
@@ -46,10 +53,16 @@ describe('SendForgotPassword', () => {
   })
 
   it('should generate a forgot password token', async () => {
+    const generateToken = jest.spyOn(fakeUserTokensRepository, 'generate')
+
     await createUserService.execute({
       name: 'John Doe',
       email: 'john@mail.com',
       password: '123'
     })
+
+    await sendForgotPasswordEmailService.execute({ email: 'john@mail.com' })
+
+    expect(generateToken).toHaveBeenCalled()
   })
 })
