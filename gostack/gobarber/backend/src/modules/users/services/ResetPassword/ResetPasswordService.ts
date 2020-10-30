@@ -40,7 +40,7 @@ export default class SendForgotPasswordEmailService {
     const compareDate = addHours(tokenCreatedAt, 2)
 
     if (isAfter(Date.now(), compareDate)) {
-      throw new AppError('Token exipired')
+      throw new AppError('Token expired')
     }
 
     getUser.password = await this.encrypt.generate({ password })

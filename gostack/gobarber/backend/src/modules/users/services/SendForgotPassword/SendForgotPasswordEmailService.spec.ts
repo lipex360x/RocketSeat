@@ -2,13 +2,13 @@ import AppError from '@shared/errors/AppError'
 
 import FakeUsersRepository from '@modules/users/repositories/fakes/FakeUsersRepository'
 import FakeUserTokensRepository from '@modules/users/repositories/fakes/FakeUserTokensRepository'
-import FakeSendMail from '@shared/container/providers/SendMails/fakes/FakeSendMail'
+import FakeMailProvider from '@shared/container/providers/MailProvider/fakes/FakeMailProvider'
 
 import SendForgotPasswordEmailService from './SendForgotPasswordEmailService'
 
 let fakeUsersRepository: FakeUsersRepository
 let fakeUserTokensRepository: FakeUserTokensRepository
-let fakeSendMail: FakeSendMail
+let fakeMailProvider: FakeMailProvider
 
 let sendForgotPasswordEmailService: SendForgotPasswordEmailService
 
@@ -16,17 +16,17 @@ describe('SendForgotPassword', () => {
   beforeEach(() => {
     fakeUsersRepository = new FakeUsersRepository()
     fakeUserTokensRepository = new FakeUserTokensRepository()
-    fakeSendMail = new FakeSendMail()
+    fakeMailProvider = new FakeMailProvider()
 
     sendForgotPasswordEmailService = new SendForgotPasswordEmailService(
       fakeUsersRepository,
-      fakeSendMail,
+      fakeMailProvider,
       fakeUserTokensRepository
     )
   })
 
   it('should be able to recover the password using email', async () => {
-    const sendMail = jest.spyOn(fakeSendMail, 'sendMail')
+    const sendMail = jest.spyOn(fakeMailProvider, 'sendMail')
 
     await fakeUsersRepository.create({
       name: 'John Doe',

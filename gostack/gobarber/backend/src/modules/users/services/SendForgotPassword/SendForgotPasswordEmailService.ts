@@ -2,7 +2,7 @@ import AppError from '@shared/errors/AppError'
 import { inject, injectable } from 'tsyringe'
 
 import IUsersRepository from '@modules/users/repositories/interfaces/IUsersRepository'
-import ISendMail from '@shared/container/providers/SendMails/interfaces/ISendMails'
+import IMailProvider from '@shared/container/providers/MailProvider/interfaces/IMailProvider'
 import IUserTokensRepository from '@modules/users/repositories/interfaces/IUserTokensRepository'
 
 interface Request {
@@ -15,8 +15,8 @@ export default class SendForgotPasswordEmailService {
     @inject('UsersRepository')
     private repository: IUsersRepository,
 
-    @inject('SendMail')
-    private sendMail: ISendMail,
+    @inject('MailProvider')
+    private mailProvider: IMailProvider,
 
     @inject('UserTokensRepository')
     private userToken: IUserTokensRepository
@@ -31,9 +31,19 @@ export default class SendForgotPasswordEmailService {
 
     const { token } = await this.userToken.generate({ user_id: getUser.id })
 
-    await this.sendMail.sendMail({
-      to: email,
-      body: `Pedido de recuperação de senha. Token: ${token}`
+    await this.mailProvider.sendMail({
+      to: {
+        name: getUser.name,
+        email: getUser.email
+      },
+      subject: '[GoBarber] Recovery Password',
+      templateData: {
+        template: 'Hello, {{name}} - {{token}}',
+        variables: {
+          name: getUser.name,
+          token
+        }
+      }
     })
   }
 }
