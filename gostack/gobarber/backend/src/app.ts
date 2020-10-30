@@ -7,7 +7,7 @@ import 'express-async-errors'
 import AppError from '@shared/errors/AppError'
 import connectDB from '@shared/typeorm'
 import routes from '@shared/routes'
-import storageConfig from '@shared/container/providers/StorageFiles/config/storage.config'
+import storageConfig from '@shared/container/providers/StorageProvider/config/storage.config'
 
 import '@shared/container'
 

@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import multer from 'multer'
 
-import storageConfig from '@shared/container/providers/StorageFiles/config/storage.config'
+import storageConfig from '@shared/container/providers/StorageProvider/config/storage.config'
 import sessionStarted from '@shared/middlewares/sessions/sessionStarted'
 
 import UsersController from '../controller/CreateUserController'

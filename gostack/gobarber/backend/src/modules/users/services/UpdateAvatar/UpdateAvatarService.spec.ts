@@ -1,20 +1,20 @@
 import FakeUsersRepository from '@modules/users/repositories/fakes/FakeUsersRepository'
-import FakeStorageFiles from '@shared/container/providers/StorageFiles/fakes/FakeStorageFiles'
+import FakeStorageProvider from '@shared/container/providers/StorageProvider/fakes/FakeStorageProvider'
 
 import UpdateAvatarService from './UpdateAvatarService'
 import AppError from '@shared/errors/AppError'
 
 let fakeUsersRepository: FakeUsersRepository
-let fakeStorageFiles: FakeStorageFiles
+let fakeStorageProvider: FakeStorageProvider
 
 let updateAvatarService: UpdateAvatarService
 
 describe('UpdateAvatar', () => {
   beforeEach(() => {
     fakeUsersRepository = new FakeUsersRepository()
-    fakeStorageFiles = new FakeStorageFiles()
+    fakeStorageProvider = new FakeStorageProvider()
 
-    updateAvatarService = new UpdateAvatarService(fakeUsersRepository, fakeStorageFiles)
+    updateAvatarService = new UpdateAvatarService(fakeUsersRepository, fakeStorageProvider)
   })
 
   it('shoud be able to update the user avatar', async () => {
@@ -40,7 +40,7 @@ describe('UpdateAvatar', () => {
   })
 
   it('shoud be able to delete old user avatar version', async () => {
-    const deleteFile = jest.spyOn(fakeStorageFiles, 'deleteFile')
+    const deleteFile = jest.spyOn(fakeStorageProvider, 'deleteFile')
 
     const user = await fakeUsersRepository.create({
       name: 'John Doe',

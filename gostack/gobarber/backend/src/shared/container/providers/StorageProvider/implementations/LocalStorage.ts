@@ -1,10 +1,10 @@
 import fs from 'fs'
 import path from 'path'
 
-import storageConfig from '@shared/container/providers/StorageFiles/config/storage.config'
-import IStorageFiles, { DeleteFileProps, SaveFileProps } from '../interfaces/IStorageFiles'
+import storageConfig from '@shared/container/providers/StorageProvider/config/storage.config'
+import IStorageProvider, { DeleteFileProps, SaveFileProps } from '../interfaces/IStorageProvider'
 
-export default class LocalStorage implements IStorageFiles {
+export default class LocalStorage implements IStorageProvider {
   async saveFile ({ file }:SaveFileProps): Promise<string> {
     await fs.promises.rename(
       path.resolve(storageConfig.tmpFolder, file),
