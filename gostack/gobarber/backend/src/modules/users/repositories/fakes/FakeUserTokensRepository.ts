@@ -12,7 +12,8 @@ export default class FakeUserTokensRepository implements IUserTokensRepository {
     Object.assign(userToken, {
       user_id,
       token: uuid(),
-      created_at: new Date()
+      created_at: new Date(),
+      updated_at: new Date()
     })
 
     this.userTokens.push(userToken)

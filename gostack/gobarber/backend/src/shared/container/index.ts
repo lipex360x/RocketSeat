@@ -9,6 +9,9 @@ import AppointmentsRepository from '@modules/appointments/repositories/implement
 import IUsersRepository from '@modules/users/repositories/interfaces/IUsersRepository'
 import UsersRepository from '@modules/users/repositories/implementations/UsersRepository'
 
+import IUserTokensRepository from '@modules/users/repositories/interfaces/IUserTokensRepository'
+import UserTokensRepository from '@modules/users/repositories/implementations/UserTokensRepository'
+
 container.registerSingleton<IAppointmentsRepository>(
   'AppointmentsRepository',
   AppointmentsRepository
@@ -17,4 +20,9 @@ container.registerSingleton<IAppointmentsRepository>(
 container.registerSingleton<IUsersRepository>(
   'UsersRepository',
   UsersRepository
+)
+
+container.registerSingleton<IUserTokensRepository>(
+  'UserTokensRepository',
+  UserTokensRepository
 )

@@ -18,7 +18,7 @@ export default class SendForgotPasswordEmailService {
     @inject('SendMail')
     private sendMail: ISendMail,
 
-    @inject('UserToken')
+    @inject('UserTokensRepository')
     private userToken: IUserTokensRepository
   ) {}
 
