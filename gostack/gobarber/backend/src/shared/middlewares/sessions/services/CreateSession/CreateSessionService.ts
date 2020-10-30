@@ -5,7 +5,7 @@ import sessionConfig from '@shared/middlewares/sessions/config/session.config'
 
 import AppError from '@shared/errors/AppError'
 import User from '@modules/users/entities/User'
-import IEncrypt from '@modules/users/providers/Encrypt/interfaces/IEncrypt'
+import IEncryptProvider from '@modules/users/providers/EncryptProvider/interfaces/IEncryptProvider'
 import IUsersRepository from '@modules/users/repositories/interfaces/IUsersRepository'
 
 interface Request {
@@ -24,8 +24,8 @@ export default class CreateSessionService {
     @inject('UsersRepository')
     private repository: IUsersRepository,
 
-    @inject('Encrypt')
-    private encrypt: IEncrypt
+    @inject('EncryptProvider')
+    private encrypt: IEncryptProvider
   ) { }
 
   async execute ({ email, password }:Request): Promise<Response> {

@@ -1,8 +1,8 @@
 import { hash, compare } from 'bcryptjs'
 
-import IEncrypt, { CompareProps, GenerateProps } from '../interfaces/IEncrypt'
+import IEncryptProvider, { CompareProps, GenerateProps } from '../interfaces/IEncryptProvider'
 
-export default class BCrypt implements IEncrypt {
+export default class BCrypt implements IEncryptProvider {
   async generate ({ password }:GenerateProps): Promise<string> {
     return hash(password, 8)
   }

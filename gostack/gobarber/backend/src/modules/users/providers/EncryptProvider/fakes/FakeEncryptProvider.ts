@@ -1,6 +1,6 @@
-import IEncrypt, { CompareProps, GenerateProps } from '../interfaces/IEncrypt'
+import IEncryptProvider, { CompareProps, GenerateProps } from '../interfaces/IEncryptProvider'
 
-export default class FakeEncrypt implements IEncrypt {
+export default class FakeEncrypt implements IEncryptProvider {
   async generate ({ password }:GenerateProps): Promise<string> {
     return password
   }

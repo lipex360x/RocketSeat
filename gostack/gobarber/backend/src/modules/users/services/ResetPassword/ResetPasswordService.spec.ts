@@ -2,13 +2,13 @@ import AppError from '@shared/errors/AppError'
 
 import FakeUsersRepository from '@modules/users/repositories/fakes/FakeUsersRepository'
 import FakeUserTokensRepository from '@modules/users/repositories/fakes/FakeUserTokensRepository'
-import FakeEncrypt from '@modules/users/providers/Encrypt/fakes/FakeEncrypt'
+import FakeEncryptProvider from '@modules/users/providers/EncryptProvider/fakes/FakeEncryptProvider'
 
 import ResetPasswordService from './ResetPasswordService'
 
 let fakeUsersRepository: FakeUsersRepository
 let fakeUserTokensRepository: FakeUserTokensRepository
-let fakeEncrypt: FakeEncrypt
+let fakeEncryptProvider: FakeEncryptProvider
 
 let resetPasswordService: ResetPasswordService
 
@@ -16,12 +16,12 @@ describe('ResetPassword', () => {
   beforeEach(() => {
     fakeUsersRepository = new FakeUsersRepository()
     fakeUserTokensRepository = new FakeUserTokensRepository()
-    fakeEncrypt = new FakeEncrypt()
+    fakeEncryptProvider = new FakeEncryptProvider()
 
     resetPasswordService = new ResetPasswordService(
       fakeUsersRepository,
       fakeUserTokensRepository,
-      fakeEncrypt
+      fakeEncryptProvider
     )
   })
 
@@ -36,7 +36,7 @@ describe('ResetPassword', () => {
 
     user = await fakeUsersRepository.findByEmail({ email: user.email })
 
-    const encryptPassword = jest.spyOn(fakeEncrypt, 'generate')
+    const encryptPassword = jest.spyOn(fakeEncryptProvider, 'generate')
 
     await resetPasswordService.execute({
       token,

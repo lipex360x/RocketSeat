@@ -1,6 +1,9 @@
 import { container } from 'tsyringe'
 
-import IEncrypt from './Encrypt/interfaces/IEncrypt'
-import BCrypt from './Encrypt/implementations/BCrypt'
+import IEncryptProvider from './EncryptProvider/interfaces/IEncryptProvider'
+import BCrypt from './EncryptProvider/implementations/BCrypt'
 
-container.registerSingleton<IEncrypt>('Encrypt', BCrypt)
+container.registerSingleton<IEncryptProvider>(
+  'EncryptProvider',
+  BCrypt
+)

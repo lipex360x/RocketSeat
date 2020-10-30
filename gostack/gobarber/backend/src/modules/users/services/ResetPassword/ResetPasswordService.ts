@@ -4,7 +4,7 @@ import { inject, injectable } from 'tsyringe'
 
 import IUsersRepository from '@modules/users/repositories/interfaces/IUsersRepository'
 import IUserTokensRepository from '@modules/users/repositories/interfaces/IUserTokensRepository'
-import IEncrypt from '@modules/users/providers/Encrypt/interfaces/IEncrypt'
+import IEncryptProvider from '@modules/users/providers/EncryptProvider/interfaces/IEncryptProvider'
 
 interface Request {
   token: string
@@ -20,8 +20,8 @@ export default class SendForgotPasswordEmailService {
     @inject('UserTokensRepository')
     private userToken: IUserTokensRepository,
 
-    @inject('Encrypt')
-    private encrypt: IEncrypt
+    @inject('EncryptProvider')
+    private encrypt: IEncryptProvider
   ) {}
 
   async execute ({ token, password }:Request): Promise<void> {

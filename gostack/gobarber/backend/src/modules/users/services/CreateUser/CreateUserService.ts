@@ -2,7 +2,7 @@ import AppError from '@shared/errors/AppError'
 import { inject, injectable } from 'tsyringe'
 
 import User from '@modules/users/entities/User'
-import IEncrypt from '@modules/users/providers/Encrypt/interfaces/IEncrypt'
+import IEncryptProvider from '@modules/users/providers/EncryptProvider/interfaces/IEncryptProvider'
 import IUsersRepository from '@modules/users/repositories/interfaces/IUsersRepository'
 
 interface Request {
@@ -17,8 +17,8 @@ export default class CreateUserService {
     @inject('UsersRepository')
     private repository: IUsersRepository,
 
-    @inject('Encrypt')
-    private encrypt: IEncrypt
+    @inject('EncryptProvider')
+    private encrypt: IEncryptProvider
   ) {}
 
   async execute ({ name, email, password }:Request): Promise<User> {
