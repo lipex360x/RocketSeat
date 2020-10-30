@@ -29,8 +29,11 @@ export default class SendForgotPasswordEmailService {
       throw new AppError('User does not exists')
     }
 
-    await this.userToken.generate({ user_id: getUser.id })
+    const { token } = await this.userToken.generate({ user_id: getUser.id })
 
-    await this.sendMail.sendMail({ to: email, body: '<p>Pedido de recuperação de senha</p>' })
+    await this.sendMail.sendMail({
+      to: email,
+      body: `Pedido de recuperação de senha. Token: ${token}`
+    })
   }
 }
