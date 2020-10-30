@@ -3,8 +3,8 @@ import { inject, injectable } from 'tsyringe'
 import AppError from '@shared/errors/AppError'
 
 import User from '@modules/users/entities/User'
-import IUsersRepository from '@modules/users/repositories/IUsersRepository'
-import IStorageFiles from '@shared/container/providers/StorageFiles/models/IStorageFiles'
+import IUsersRepository from '@modules/users/repositories/interfaces/IUsersRepository'
+import IStorageFiles from '@shared/container/providers/StorageFiles/interfaces/IStorageFiles'
 
 interface Request {
   user_id: string

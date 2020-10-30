@@ -5,8 +5,8 @@ import sessionConfig from '@shared/middlewares/sessions/config/session.config'
 
 import AppError from '@shared/errors/AppError'
 import User from '@modules/users/entities/User'
-import IEncrypt from '@modules/users/providers/Encrypt/IEncrypt'
-import IUsersRepository from '@modules/users/repositories/IUsersRepository'
+import IEncrypt from '@modules/users/providers/Encrypt/interfaces/IEncrypt'
+import IUsersRepository from '@modules/users/repositories/interfaces/IUsersRepository'
 
 interface Request {
   email: string

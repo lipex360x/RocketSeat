@@ -1,4 +1,4 @@
-import IStorageFiles, { DeleteFileProps, SaveFileProps } from '../models/IStorageFiles'
+import IStorageFiles, { DeleteFileProps, SaveFileProps } from '../interfaces/IStorageFiles'
 
 export default class FakeStorageFiles implements IStorageFiles {
   private storage:string[] = []

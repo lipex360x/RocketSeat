@@ -34,7 +34,7 @@ describe('CreateSession', () => {
   })
 
   it('should not be able to create a session with non existing user', async () => {
-    expect(createSessionService.execute({
+    await expect(createSessionService.execute({
       email: 'john@mail.com',
       password: '123456'
     })).rejects.toBeInstanceOf(AppError)
@@ -47,7 +47,7 @@ describe('CreateSession', () => {
       password: '111111'
     })
 
-    expect(createSessionService.execute({
+    await expect(createSessionService.execute({
       email: 'john@mail.com',
       password: '123456'
     })).rejects.toBeInstanceOf(AppError)

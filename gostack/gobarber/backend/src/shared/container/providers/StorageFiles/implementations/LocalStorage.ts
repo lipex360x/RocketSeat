@@ -2,7 +2,7 @@ import fs from 'fs'
 import path from 'path'
 
 import storageConfig from '@shared/container/providers/StorageFiles/config/storage.config'
-import IStorageFiles, { DeleteFileProps, SaveFileProps } from '../models/IStorageFiles'
+import IStorageFiles, { DeleteFileProps, SaveFileProps } from '../interfaces/IStorageFiles'
 
 export default class LocalStorage implements IStorageFiles {
   async saveFile ({ file }:SaveFileProps): Promise<string> {

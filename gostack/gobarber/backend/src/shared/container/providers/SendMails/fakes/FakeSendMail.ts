@@ -1,4 +1,4 @@
-import ISendMails, { SendMailProps } from '../models/ISendMails'
+import ISendMails, { SendMailProps } from '../interfaces/ISendMails'
 
 export default class FakeSendMail implements ISendMails {
   private messages: SendMailProps[] = []

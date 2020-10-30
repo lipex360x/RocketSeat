@@ -6,7 +6,7 @@ import './providers/injectProviders'
 import IAppointmentsRepository from '@modules/appointments/repositories/IAppointmentsRepository'
 import AppointmentsRepository from '@modules/appointments/repositories/implementations/AppointmentsRepository'
 
-import IUsersRepository from '@modules/users/repositories/IUsersRepository'
+import IUsersRepository from '@modules/users/repositories/interfaces/IUsersRepository'
 import UsersRepository from '@modules/users/repositories/implementations/UsersRepository'
 
 container.registerSingleton<IAppointmentsRepository>(

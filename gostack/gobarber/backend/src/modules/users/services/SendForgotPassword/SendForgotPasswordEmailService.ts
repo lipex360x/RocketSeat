@@ -1,9 +1,8 @@
 import AppError from '@shared/errors/AppError'
 import { inject, injectable } from 'tsyringe'
 
-import User from '@modules/users/entities/User'
-import IUsersRepository from '@modules/users/repositories/IUsersRepository'
-import ISendMail from '@shared/container/providers/SendMails/models/ISendMails'
+import IUsersRepository from '@modules/users/repositories/interfaces/IUsersRepository'
+import ISendMail from '@shared/container/providers/SendMails/interfaces/ISendMails'
 
 interface Request {
   email: string
@@ -20,6 +19,11 @@ export default class SendForgotPasswordEmailService {
   ) {}
 
   async execute ({ email }:Request): Promise<void> {
-    this.sendMail.sendMail({ to: email, body: '<p>Pedido de recuperação de senha</p>' })
+    const getUser = await this.repository.findByEmail({ email })
+
+    if (!getUser) {
+      throw new AppError('User does not exists')
+    }
+    await this.sendMail.sendMail({ to: email, body: '<p>Pedido de recuperação de senha</p>' })
   }
 }

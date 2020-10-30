@@ -1,5 +1,5 @@
 import { v4 as uuid } from 'uuid'
-import IUsersRepository, { FindByEmailProps, FindByIdProps, CreateProps, SaveProps } from '../IUsersRepository'
+import IUsersRepository, { FindByEmailProps, FindByIdProps, CreateProps, SaveProps } from '../interfaces/IUsersRepository'
 
 import User from '@modules/users/entities/User'
 
