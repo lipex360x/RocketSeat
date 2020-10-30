@@ -1,7 +1,8 @@
 import AppError from '@shared/errors/AppError'
-
 import { NextFunction, Request, Response } from 'express'
 import { verify } from 'jsonwebtoken'
+
+import sessionConfig from './config/session.config'
 
 interface TokenPayload {
   iat: number
@@ -19,7 +20,7 @@ export default function sessionStarted (request:Request, response:Response, next
   const [, token] = tokenHeader.split(' ')
 
   try {
-    const decoded = verify(token, process.env.JWT_TOKEN)
+    const decoded = verify(token, sessionConfig.jwt.secret)
 
     const { sub } = decoded as TokenPayload
 
