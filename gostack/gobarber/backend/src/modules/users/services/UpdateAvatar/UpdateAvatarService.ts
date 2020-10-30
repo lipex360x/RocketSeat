@@ -4,7 +4,7 @@ import AppError from '@shared/errors/AppError'
 
 import User from '@modules/users/entities/User'
 import IUsersRepository from '@modules/users/repositories/IUsersRepository'
-import IStorageFiles from '@shared/container/providers/StorageFiles/IStorageFiles'
+import IStorageFiles from '@shared/container/providers/StorageFiles/models/IStorageFiles'
 
 interface Request {
   user_id: string
