@@ -15,8 +15,16 @@ export interface FindProvidersInMonthProps{
   year: number
 }
 
+export interface FindAllInDayProps {
+  provider_id: string
+  month: number
+  year: number
+  day: number
+}
+
 export default interface IAppointmentsRepository {
   findByDate(data:FindByDateProps): Promise<Appointment>
   findProvidersInMonth(data: FindProvidersInMonthProps): Promise<Appointment[]>
+  findAllInDay(data: FindAllInDayProps): Promise<Appointment[]>
   create(data: CreateProps): Promise<Appointment>
 }
