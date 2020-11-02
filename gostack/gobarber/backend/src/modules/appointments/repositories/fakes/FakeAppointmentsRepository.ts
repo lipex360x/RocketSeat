@@ -13,13 +13,14 @@ import InterfaceRepository, {
 export default class AppointmentsRepository implements InterfaceRepository {
   private appointments: Appointment[] = [];
 
-  async create ({ provider_id, date }:CreateProps): Promise<Appointment> {
+  async create ({ provider_id, user_id, date }:CreateProps): Promise<Appointment> {
     const appointment = new Appointment()
 
     Object.assign(appointment, {
       id: uuid(),
       date,
-      provider_id
+      provider_id,
+      user_id
     })
 
     this.appointments.push(appointment)

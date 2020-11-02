@@ -54,8 +54,8 @@ export default class AppointmentsRepository implements InterfaceRepository {
     return filterAppointments
   }
 
-  async create ({ provider_id, date }:CreateProps): Promise<Appointment> {
-    const appointment = this.ormRepository.create({ provider_id, date })
+  async create ({ user_id, provider_id, date }:CreateProps): Promise<Appointment> {
+    const appointment = this.ormRepository.create({ user_id, provider_id, date })
 
     await this.ormRepository.save(appointment)
 

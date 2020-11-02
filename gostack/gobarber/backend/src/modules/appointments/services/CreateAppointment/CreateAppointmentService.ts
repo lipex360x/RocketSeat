@@ -7,6 +7,7 @@ import Appointment from '@modules/appointments/entities/Appointment'
 import IAppointmentsRepository from '@modules/appointments/repositories/interfaces/IAppointmentsRepository'
 
 interface Request {
+  user_id: string
   provider_id: string
   date: Date
 }
@@ -18,7 +19,7 @@ export default class CreateAppointmentService {
     private repository: IAppointmentsRepository
   ) {}
 
-  async execute ({ provider_id, date }:Request): Promise<Appointment> {
+  async execute ({ user_id, provider_id, date }:Request): Promise<Appointment> {
     const appointmentDate = startOfHour(date)
 
     const findAppointment = await this.repository.findByDate({ date: appointmentDate })
@@ -27,7 +28,7 @@ export default class CreateAppointmentService {
       throw new AppError('This appointment is already booked')
     }
 
-    const appointment = await this.repository.create({ provider_id, date: appointmentDate })
+    const appointment = await this.repository.create({ user_id, provider_id, date: appointmentDate })
 
     return appointment
   }
