@@ -4,7 +4,7 @@ import { injectable, inject } from 'tsyringe'
 import AppError from '@shared/errors/AppError'
 
 import Appointment from '@modules/appointments/entities/Appointment'
-import IAppointmentsRepository from '@modules/appointments/repositories/IAppointmentsRepository'
+import IAppointmentsRepository from '@modules/appointments/repositories/interfaces/IAppointmentsRepository'
 
 interface Request {
   provider_id: string

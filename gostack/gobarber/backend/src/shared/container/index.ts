@@ -3,7 +3,7 @@ import { container } from 'tsyringe'
 import '@modules/users/providers/injectProviders'
 import './providers/injectProviders'
 
-import IAppointmentsRepository from '@modules/appointments/repositories/IAppointmentsRepository'
+import IAppointmentsRepository from '@modules/appointments/repositories/interfaces/IAppointmentsRepository'
 import AppointmentsRepository from '@modules/appointments/repositories/implementations/AppointmentsRepository'
 
 import IUsersRepository from '@modules/users/repositories/interfaces/IUsersRepository'

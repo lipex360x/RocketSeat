@@ -1,9 +1,9 @@
 import { v4 as uuid } from 'uuid'
-import { isEqual } from 'date-fns'
+import { isEqual, getMonth, getYear } from 'date-fns'
 
 import Appointment from '@modules/appointments/entities/Appointment'
 
-import InterfaceRepository, { CreateProps, FindByDateProps } from '../IAppointmentsRepository'
+import InterfaceRepository, { CreateProps, FindByDateProps, FindProvidersInMonthProps } from '../interfaces/IAppointmentsRepository'
 
 export default class AppointmentsRepository implements InterfaceRepository {
   private appointments: Appointment[] = [];
@@ -22,8 +22,18 @@ export default class AppointmentsRepository implements InterfaceRepository {
     return appointment
   }
 
+  async findProvidersInMonth ({ provider_id, year, month }:FindProvidersInMonthProps): Promise<Appointment[]> {
+    const filterAppointments = this.appointments.filter(appointment =>
+      appointment.provider_id === provider_id &&
+      getYear(appointment.date) === year &&
+      getMonth(appointment.date) + 1 === month
+    )
+
+    return filterAppointments
+  }
+
   async findByDate ({ date }:FindByDateProps): Promise<Appointment> {
-    const findAppointment = this.appointments.find(a => isEqual(a.date, date))
+    const findAppointment = this.appointments.find(appointment => isEqual(appointment.date, date))
 
     return findAppointment
   }

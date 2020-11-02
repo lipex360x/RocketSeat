@@ -1,4 +1,4 @@
-import Appointment from '../entities/Appointment'
+import Appointment from '@modules/appointments/entities/Appointment'
 
 export interface CreateProps {
   provider_id: string
@@ -9,7 +9,14 @@ export interface FindByDateProps {
   date: Date
 }
 
+export interface FindProvidersInMonthProps{
+  provider_id: string
+  month: number
+  year: number
+}
+
 export default interface IAppointmentsRepository {
   findByDate(data:FindByDateProps): Promise<Appointment>
+  findProvidersInMonth(data: FindProvidersInMonthProps): Promise<Appointment[]>
   create(data: CreateProps): Promise<Appointment>
 }

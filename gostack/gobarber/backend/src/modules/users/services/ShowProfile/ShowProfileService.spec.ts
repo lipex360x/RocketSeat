@@ -7,7 +7,7 @@ import ShowProfileService from './ShowProfileService'
 let fakeUsersRepository: FakeUsersRepository
 let showProfileService: ShowProfileService
 
-describe('ResetPassword', () => {
+describe('ShowProfileService', () => {
   beforeEach(() => {
     fakeUsersRepository = new FakeUsersRepository()
     showProfileService = new ShowProfileService(fakeUsersRepository)
