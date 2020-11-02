@@ -11,24 +11,17 @@ describe('ListMonthAvailabilityService', () => {
   })
 
   it('should be able to list the month availability from provider', async () => {
-    await fakeAppointmentsRepository.create({
-      provider_id: 'user',
-      date: new Date(2020, 3, 20, 8, 0, 0)
-    })
+    // Create Appointments
+    for (let i = 8; i < 18; i++) {
+      await fakeAppointmentsRepository.create({
+        provider_id: 'user',
+        date: new Date(2020, 4, 20, i, 0, 0)
+      })
+    }
 
     await fakeAppointmentsRepository.create({
       provider_id: 'user',
-      date: new Date(2020, 4, 20, 8, 0, 0)
-    })
-
-    await fakeAppointmentsRepository.create({
-      provider_id: 'user',
-      date: new Date(2020, 4, 20, 10, 0, 0)
-    })
-
-    await fakeAppointmentsRepository.create({
-      provider_id: 'user',
-      date: new Date(2020, 4, 21, 12, 0, 0)
+      date: new Date(2020, 4, 21, 10, 0, 0)
     })
 
     const availability = await listMonthAvailabilityService.execute({
@@ -40,7 +33,7 @@ describe('ListMonthAvailabilityService', () => {
     expect(availability).toEqual(expect.arrayContaining([
       { day: 19, available: true },
       { day: 20, available: false },
-      { day: 21, available: false },
+      { day: 21, available: true },
       { day: 22, available: true }
     ]))
   })

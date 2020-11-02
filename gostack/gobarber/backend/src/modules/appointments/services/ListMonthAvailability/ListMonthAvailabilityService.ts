@@ -1,6 +1,6 @@
 import 'reflect-metadata'
 import { injectable, inject } from 'tsyringe'
-import { getDaysInMonth } from 'date-fns'
+import { getDaysInMonth, getDate } from 'date-fns'
 
 import IAppointmentsRepository from '@modules/appointments/repositories/interfaces/IAppointmentsRepository'
 
@@ -18,8 +18,8 @@ type Response = Array<{
 @injectable()
 export default class ListMonthAvailabilityService {
   constructor (
-    @inject('')
-    private repository:IAppointmentsRepository
+    @inject('AppointmentsRepository')
+    private repository: IAppointmentsRepository
   ) {}
 
   async execute ({ provider_id, year, month }:Request): Promise<Response> {
@@ -32,8 +32,17 @@ export default class ListMonthAvailabilityService {
       (_, index) => index + 1
     )
 
-    console.log(eachDayArray)
+    const availability = eachDayArray.map(day => {
+      const appointmentsInDay = getAppointments.filter(appointment => {
+        return getDate(appointment.date) === day
+      })
 
-    return [{ day: 1, available: true }]
+      return {
+        day,
+        available: appointmentsInDay.length < 10
+      }
+    })
+
+    return availability
   }
 }
