@@ -1,5 +1,5 @@
-import { Repository, getRepository } from 'typeorm'
-import IUsersRepository, { FindByEmailProps, FindByIdProps, CreateProps, SaveProps } from '../interfaces/IUsersRepository'
+import { Repository, getRepository, Not } from 'typeorm'
+import IUsersRepository, { FindByEmailProps, FindByIdProps, CreateProps, SaveProps, FindAllProvidersProps } from '../interfaces/IUsersRepository'
 
 import User from '@modules/users/entities/User'
 
@@ -20,6 +20,22 @@ export default class UsersRepository implements IUsersRepository {
     const getUser = await this.ormRepository.findOne(id)
 
     return getUser
+  }
+
+  async findAllProviders ({ except_user_id }:FindAllProvidersProps):Promise<User[]> {
+    let users: User[]
+
+    if (except_user_id) {
+      users = await this.ormRepository.find({
+        where: {
+          id: Not(except_user_id)
+        }
+      })
+    } else {
+      users = await this.ormRepository.find()
+    }
+
+    return users
   }
 
   async create ({ name, email, password }:CreateProps): Promise<User> {
