@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 
-import storageConfig from '@shared/container/providers/StorageProvider/config/storage.config'
+import storageConfig from '../config/storage.config'
 import IStorageProvider, { DeleteFileProps, SaveFileProps } from '../interfaces/IStorageProvider'
 
 export default class LocalStorage implements IStorageProvider {

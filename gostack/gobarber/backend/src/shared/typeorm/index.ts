@@ -8,7 +8,7 @@ const connectDB = async () => {
     console.log(`💖 Connected to MongoDB ${connect[1].options.database}`)
 
     process.on('SIGINT', () => {
-      connect[0].close().then(() => console.log(`  💔 Disconnected to BD ${connect[0].options.database}`))
+      connect[0].close().then(() => console.log(`  💔 Disconnected to Postgres ${connect[0].options.database}`))
       connect[1].close().then(() => console.log(`  💔 Disconnected to MongoDB ${connect[1].options.database}`))
     })
   } catch (error) {

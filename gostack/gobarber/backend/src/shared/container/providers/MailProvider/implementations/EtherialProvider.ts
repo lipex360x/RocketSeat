@@ -5,7 +5,7 @@ import IMailProvider, { SendMailProps } from '../interfaces/IMailProvider'
 import IMailTemplates from '../../MailTemplates/interfaces/IMailTemplates'
 
 @injectable()
-export default class Etherial implements IMailProvider {
+export default class EtherialProvider implements IMailProvider {
   private client: Transporter
 
   constructor (
