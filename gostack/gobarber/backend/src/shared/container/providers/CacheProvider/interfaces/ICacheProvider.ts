@@ -11,7 +11,7 @@ export interface DeleteCacheProps {
   key: string
 }
 
-export interface TruncateAllProps {
+export interface DeletePrefixProps {
   key: string
 }
 
@@ -19,5 +19,5 @@ export default interface ICacheProvider {
   saveCache(data: SaveCacheProps): Promise<void>
   getCache<T>(data: GetCacheProps): Promise<T>
   deleteCache(data: DeleteCacheProps): Promise<void>
-  truncateAll(data: TruncateAllProps): Promise<void>
+  deletePrefix(data: DeletePrefixProps): Promise<void>
 }

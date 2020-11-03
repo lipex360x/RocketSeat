@@ -31,6 +31,8 @@ export default class ListProvidersService {
         key: `providers-list:${except_user_id}`,
         value: getUser
       })
+
+      logger.log('cache created')
     }
     return getUser
   }

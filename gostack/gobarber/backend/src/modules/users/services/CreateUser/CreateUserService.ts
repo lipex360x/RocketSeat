@@ -4,6 +4,7 @@ import { inject, injectable } from 'tsyringe'
 import User from '@modules/users/entities/User'
 import IEncryptProvider from '@modules/users/providers/EncryptProvider/interfaces/IEncryptProvider'
 import IUsersRepository from '@modules/users/repositories/interfaces/IUsersRepository'
+import ICacheProvider from '@shared/container/providers/CacheProvider/interfaces/ICacheProvider'
 
 interface Request {
   name: string
@@ -18,7 +19,10 @@ export default class CreateUserService {
     private repository: IUsersRepository,
 
     @inject('EncryptProvider')
-    private encrypt: IEncryptProvider
+    private encrypt: IEncryptProvider,
+
+    @inject('CacheProvider')
+    private cacheProvider: ICacheProvider
   ) {}
 
   async execute ({ name, email, password }:Request): Promise<User> {
@@ -35,6 +39,8 @@ export default class CreateUserService {
       email,
       password: passwordEncrypt
     })
+
+    await this.cacheProvider.deletePrefix({ key: 'providers-list' })
 
     return newUser
   }
