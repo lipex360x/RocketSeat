@@ -1,6 +1,7 @@
 import { Router } from 'express'
 
 import sessionStarted from '@shared/middlewares/sessions/sessionStarted'
+
 import ListProvidersController from '../controllers/ListProvidersController'
 import ListDayAvailabilityController from '../controllers/ListDayAvailabilityController'
 import ListMonthAvailabilityController from '../controllers/ListMonthAvailabilityController'
