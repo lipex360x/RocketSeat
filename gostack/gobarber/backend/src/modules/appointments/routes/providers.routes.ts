@@ -1,4 +1,5 @@
 import { Router } from 'express'
+import { celebrate, Segments, Joi } from 'celebrate'
 
 import sessionStarted from '@shared/middlewares/sessions/sessionStarted'
 
@@ -14,7 +15,17 @@ const router = Router()
 
 router.use(sessionStarted)
 router.get('/', listProvidersController.index)
-router.get('/:provider_id/month-availability', listMonthAvailabilityController.index)
-router.get('/:provider_id/day-availability', listDayAvailabilityController.index)
+
+router.get('/:provider_id/month-availability', celebrate({
+  [Segments.PARAMS]: {
+    provider_id: Joi.string().uuid().required()
+  }
+}), listMonthAvailabilityController.index)
+
+router.get('/:provider_id/day-availability', celebrate({
+  [Segments.PARAMS]: {
+    provider_id: Joi.string().uuid().required()
+  }
+}), listDayAvailabilityController.index)
 
 export default router

@@ -1,4 +1,5 @@
 import { Router } from 'express'
+import { celebrate, Segments, Joi } from 'celebrate'
 
 import sessionStarted from '@shared/middlewares/sessions/sessionStarted'
 import CreateAppointmentsController from '../controllers/CreateAppointmentsController'
@@ -11,13 +12,13 @@ const router = Router()
 
 router.use(sessionStarted)
 
-router.get('/', async (request, response) => {
-  // const appointments = await repository.find()
+router.post('/', celebrate({
+  [Segments.BODY]: {
+    provider_id: Joi.string().uuid().required(),
+    date: Joi.date().required()
+  }
+}), createAppointmentsController.create)
 
-  // return response.json(appointments)
-})
-
-router.post('/', createAppointmentsController.create)
 router.get('/me', listAppointmentsController.index)
 
 export default router
