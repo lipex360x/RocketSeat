@@ -19,11 +19,19 @@ export default class ListAppointmentsService {
     private repository: IAppointmentsRepository,
 
     @inject('CacheProvider')
-    private cache: ICacheProvider
+    private cacheProvider: ICacheProvider
   ) {}
 
   async execute ({ provider_id, year, month, day }:Request): Promise<Appointment[]> {
-    const appointments = await this.repository.findAllInDay({ provider_id, year, month, day })
+    const cacheKey = `appointments-list:${provider_id}:${year}-${month}-${day}`
+
+    let appointments = await this.cacheProvider.getCache<Appointment[]>({ key: cacheKey })
+
+    if (!appointments) {
+      appointments = await this.repository.findAllInDay({ provider_id, year, month, day })
+
+      await this.cacheProvider.setCache({ key: cacheKey, value: appointments })
+    }
 
     return appointments
   }

@@ -1,5 +1,5 @@
 import Redis, { Redis as RedisClient } from 'ioredis'
-import ICacheProvider, { DeleteCacheProps, GetCacheProps, SaveCacheProps, DeletePrefixProps } from '../interfaces/ICacheProvider'
+import ICacheProvider, { DelCacheProps, GetCacheProps, SetCacheProps, DeletePrefixProps } from '../interfaces/ICacheProvider'
 
 import cacheConfig from '../config/cache.config'
 
@@ -10,19 +10,22 @@ export default class RedisCacheProvider implements ICacheProvider {
     this.client = new Redis(cacheConfig.config.redis)
   }
 
-  async saveCache ({ key, value }:SaveCacheProps): Promise<void> {
-    await this.client.set(key, JSON.stringify(value))
+  async setCache ({ key, value }:SetCacheProps): Promise<void> {
+    const parsedValue = JSON.stringify(value)
+
+    await this.client.set(key, parsedValue)
   }
 
   async getCache<T> ({ key }:GetCacheProps): Promise<T> {
     const data = await this.client.get(key)
+
     const parsedData = JSON.parse(data) as T
 
     return parsedData || null
   }
 
-  async deleteCache ({ key }:DeleteCacheProps): Promise<void> {
-
+  async delCache ({ key }:DelCacheProps): Promise<void> {
+    await this.client.del(key)
   }
 
   async deletePrefix ({ key }:DeletePrefixProps): Promise<void> {

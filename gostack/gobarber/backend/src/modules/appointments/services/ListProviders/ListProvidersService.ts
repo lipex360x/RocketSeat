@@ -3,7 +3,6 @@ import { inject, injectable } from 'tsyringe'
 import User from '@modules/users/entities/User'
 import ICacheProvider from '@shared/container/providers/CacheProvider/interfaces/ICacheProvider'
 import IUsersRepository from '@modules/users/repositories/interfaces/IUsersRepository'
-import logger from '@shared/logger'
 
 interface Request {
   except_user_id?: string
@@ -27,12 +26,10 @@ export default class ListProvidersService {
     if (!getUser) {
       getUser = await this.repository.findAllProviders({ except_user_id })
 
-      await this.cacheProvider.saveCache({
+      await this.cacheProvider.setCache({
         key: `providers-list:${except_user_id}`,
         value: getUser
       })
-
-      logger.log('cache created')
     }
     return getUser
   }
