@@ -10,3 +10,9 @@ services:
       - POSTGRES_DB=gobarber
     ports:
       - "5432:5432"
+
+  mongodb:
+    image: mongo
+    container_name: gobarber_mongo
+    ports:
+      - "27017:27017"
