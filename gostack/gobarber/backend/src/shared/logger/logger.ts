@@ -1,9 +1,7 @@
 import tracer from 'tracer'
 
-const level = process.env.LOG_LEVEL || 'log'
-
-const logger = global.logger = tracer.colorConsole({
-  level: level,
+const logger = tracer.colorConsole({
+  level: 'log',
   format: '{{path}}:{{line}} -> {{message}}'
 })
 

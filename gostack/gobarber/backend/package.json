@@ -8,7 +8,7 @@
     "start": "node dist/server.js",
     "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/server.ts",
     "orm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
-    "test": "jest --passWithNoTests --silent --noStackTrace",
+    "test": "jest --passWithNoTests --silent --noStackTrace --setupFiles dotenv/config",
     "test:c": "jest --clearCache",
     "test:v": "jest --passWithNoTests"
   },

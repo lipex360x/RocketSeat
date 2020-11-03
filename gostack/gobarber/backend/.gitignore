@@ -5,6 +5,8 @@ build
 temp
 tmp/*
 
+.env
+
 src/shared/container/providers/StorageFiles/tmp
 !src/shared/container/providers/StorageFiles/tmp/.gitkeep
 
