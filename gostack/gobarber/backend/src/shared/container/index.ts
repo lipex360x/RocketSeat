@@ -12,6 +12,9 @@ import UsersRepository from '@modules/users/repositories/implementations/UsersRe
 import IUserTokensRepository from '@modules/users/repositories/interfaces/IUserTokensRepository'
 import UserTokensRepository from '@modules/users/repositories/implementations/UserTokensRepository'
 
+import INotificationsRepository from '@modules/notifications/repositories/interfaces/INotificationsRepository'
+import NotificationsRepository from '@modules/notifications/repositories/implementations/NotificationsRepository'
+
 container.registerSingleton<IAppointmentsRepository>(
   'AppointmentsRepository',
   AppointmentsRepository
@@ -25,4 +28,9 @@ container.registerSingleton<IUsersRepository>(
 container.registerSingleton<IUserTokensRepository>(
   'UserTokensRepository',
   UserTokensRepository
+)
+
+container.registerSingleton<INotificationsRepository>(
+  'NotificationsRepository',
+  NotificationsRepository
 )
