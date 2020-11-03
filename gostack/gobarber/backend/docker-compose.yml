@@ -16,3 +16,9 @@ services:
     container_name: gobarber_mongo
     ports:
       - "27017:27017"
+
+  redisdb:
+    image: redis
+    container_name: gobarber_redis
+    ports:
+      - "6379:6379"
