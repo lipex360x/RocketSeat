@@ -1,4 +1,5 @@
 import { BeforeInsert, Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn } from 'typeorm'
+import { Exclude, Expose } from 'class-transformer'
 import { v4 as uuid } from 'uuid'
 
 @Entity('users')
@@ -13,6 +14,7 @@ export default class User {
   email: string
 
   @Column()
+  @Exclude()
   password: string
 
   @Column()
@@ -27,5 +29,10 @@ export default class User {
   @BeforeInsert()
   async userProps () {
     this.id = uuid()
+  }
+
+  @Expose({ name: 'avatar_url' })
+  getAvatarUrl (): string | null {
+    return this.avatar ? `${process.env.API_URL}/files/${this.avatar}` : null
   }
 }

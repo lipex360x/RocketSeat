@@ -1,5 +1,6 @@
 import { container } from 'tsyringe'
 import { Request, Response } from 'express'
+import { classToClass } from 'class-transformer'
 
 import ShowProfileService from '../services/ShowProfile/ShowProfileService'
 
@@ -11,8 +12,6 @@ export default class ShowProfileController {
 
     const getUser = await profile.execute({ user_id })
 
-    delete getUser.password
-
-    return response.json(getUser)
+    return response.json(classToClass(getUser))
   }
 }

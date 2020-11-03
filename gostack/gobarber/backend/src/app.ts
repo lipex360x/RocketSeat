@@ -16,7 +16,7 @@ const app = express()
 connectDB()
 
 app.use(express.json())
-app.use('/files', express.static(storageConfig.tmpFolder))
+app.use('/files', express.static(storageConfig.uploadFolder))
 
 app.use(routes)
 
