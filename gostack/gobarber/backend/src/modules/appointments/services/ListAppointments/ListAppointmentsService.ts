@@ -23,12 +23,7 @@ export default class ListAppointmentsService {
   ) {}
 
   async execute ({ provider_id, year, month, day }:Request): Promise<Appointment[]> {
-    const cacheData = await this.cache.getCache({ key: 'testeCache' })
-    console.log(cacheData)
-
     const appointments = await this.repository.findAllInDay({ provider_id, year, month, day })
-
-    // this.cache.saveCache({ key: 'testeCache', value: 'cache saved' })
 
     return appointments
   }

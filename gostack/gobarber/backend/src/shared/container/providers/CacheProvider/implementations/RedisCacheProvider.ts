@@ -14,10 +14,11 @@ export default class RedisCacheProvider implements ICacheProvider {
     await this.client.set(key, JSON.stringify(value))
   }
 
-  async getCache ({ key }:GetCacheProps): Promise<string> {
+  async getCache<T> ({ key }:GetCacheProps): Promise<T> {
     const data = await this.client.get(key)
+    const parsedData = JSON.parse(data) as T
 
-    return data
+    return parsedData || null
   }
 
   async deleteCache ({ key }:DeleteCacheProps): Promise<void> {

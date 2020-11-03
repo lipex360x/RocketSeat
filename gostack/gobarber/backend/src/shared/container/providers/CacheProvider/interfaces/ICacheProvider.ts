@@ -1,6 +1,6 @@
 export interface SaveCacheProps {
   key: string
-  value: string
+  value: any
 }
 
 export interface GetCacheProps {
@@ -17,7 +17,7 @@ export interface TruncateAllProps {
 
 export default interface ICacheProvider {
   saveCache(data: SaveCacheProps): Promise<void>
-  getCache(data: GetCacheProps): Promise<string>
+  getCache<T>(data: GetCacheProps): Promise<T>
   deleteCache(data: DeleteCacheProps): Promise<void>
   truncateAll(data: TruncateAllProps): Promise<void>
 }
